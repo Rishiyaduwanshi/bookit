@@ -11,6 +11,7 @@
   --hd-btn-primary: #ffd643;
   --hd-bg-tertiary-accent: #e3e3e3;
   --hd-text-tertiary-accent: #8a8282;
+  --hd-muted-color:
 }
 
 /* 🌙 Dark mode adjustments */
@@ -85,5 +86,44 @@ input {
 }
 
 .hd-btn-primary {
+  background-color: var(--hd-btn-primary);
+}
+
+.quantifier {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantifier span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 1px solid var(--hd-bg-tertiary-accent);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+
+.confirm-btn {
+  padding-block: 0.5rem;
+}
+
+.cart .top > div:not(:last-child) dt {
+  color: var(--hd-text-muted);
+}
+
+
+.muted {
+  color: var(--hd-text-muted);
+  background-color: var(--hd-bg-tertiary-accent);
+  cursor: not-allowed;
+}
+
+.selected{
   background-color: var(--hd-btn-primary);
 }
