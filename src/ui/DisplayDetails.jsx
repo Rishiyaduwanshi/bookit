@@ -6,8 +6,8 @@ import Image from 'next/image';
 
 const DisplayDetails = () => {
   return (
-    <div className="details flex justify-between   items-start m-20">
-      <div className='flex flex-col justify-between '>
+    <div className="details flex justify-between gap-8 m-20">
+      <div className='flex flex-col flex-3 justify-between '>
         <div className="relative h-80 md:h-96 rounded-lg">
           <Image
             src="https://images.unsplash.com/photo-1530789253388-582c481c54b0"

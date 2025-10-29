@@ -33,13 +33,13 @@ const Details = ({
         </div>
         <div className="time-slots" onClick={handleTimeSelect}>
           <h3 className="text-xl">Choose time</h3>
-          {availableDates.map((d, idx) => {
+          {availableTime.map((t, idx) => {
             return (
               <span
                 className="py-2 inline-block cursor-pointer px-3 m-2 border border-gray-300 text-gray-500 rounded-md "
                 key={idx}
               >
-                {d}
+                {t}
               </span>
             );
           })}

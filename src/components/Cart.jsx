@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 export default function ({ price = 987, taxes = 59 }) {
   const [quantity, setQuantity] = useState(1);
   const [subtotal, setSubtotal] = useState(price * quantity);
-  console.log(subtotal);
   const [total, setTotal] = useState(subtotal + taxes);
 
   function handleDecrement() {
@@ -20,7 +19,7 @@ export default function ({ price = 987, taxes = 59 }) {
   }, [subtotal]);
 
   return (
-    <dl className="cart hd-bg-tertiary p-5 w-1/4 rounded-lg  ">
+    <dl className="cart flex-1 mb-auto hd-bg-tertiary p-5 rounded-lg">
       <div className="top flex flex-col justify-center gap-2 w-full">
         <div className="flex justify-between">
           <dt>Starts at</dt>

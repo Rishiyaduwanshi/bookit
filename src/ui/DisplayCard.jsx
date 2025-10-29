@@ -4,7 +4,6 @@ import Cards from "../components/Cards";
 import travelData from "@/data/travelData";
 
 const Displaycard = () => {
-  console.log(travelData);
 
   return (
     <div
