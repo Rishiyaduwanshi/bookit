@@ -9,7 +9,8 @@
     "pro": "node --env-file=.env server.js",
     "start": "node server.js",
     "seed:experiences": "node --env-file=.env.dev seeds/experience.seed.js",
-    "seed:slots": "node --env-file=.env.dev seeds/slot.seed.js"
+    "seed:slots": "node --env-file=.env.dev seeds/slot.seed.js",
+    "seed:promocodes": "node --env-file=.env.dev seeds/promocode.seed.js"
   },
   "keywords": [],
   "author": "",

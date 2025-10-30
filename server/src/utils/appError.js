@@ -1,21 +1,24 @@
 class AppError extends Error {
-    constructor({ statusCode = 500, message = "Internal Server Error", errors = [], stack = "" }) {
-      super(message);
-      this.statusCode = statusCode;
-      this.success = false;
-      this.errors = errors;
-  
-      if (stack) {
-        this.stack = stack;
-      } else {
-        Error.captureStackTrace(this, this.constructor);
-      }
+  constructor({
+    statusCode = 500,
+    message = 'Internal Server Error',
+    errors = [],
+    stack = '',
+  }) {
+    super(message);
+    this.statusCode = statusCode;
+    this.success = false;
+    this.errors = errors;
+
+    if (stack) {
+      this.stack = stack;
+    } else {
+      Error.captureStackTrace(this, this.constructor);
     }
   }
-  
-  export { AppError };
-  
+}
 
+export { AppError };
 
 export class NotFoundError extends AppError {
   constructor(message = 'Resource not found') {
@@ -32,5 +35,11 @@ export class BadRequestError extends AppError {
 export class UnauthorizedError extends AppError {
   constructor(message = 'Unauthorized') {
     super({ message, statusCode: 401 });
+  }
+}
+
+export class GoneError extends AppError {
+  constructor(message = 'Resource is no longer available') {
+    super({ message, statusCode: 410 });
   }
 }
