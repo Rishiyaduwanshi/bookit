@@ -24,12 +24,12 @@ const DisplayDetails = ({ experienceId }) => {
 
   const fetchExperienceById = useCallback(async () => {
     if (!experienceId) return;
-    
+
     try {
       setIsLoading(true);
       const resp = await api.get(`/experiences/${experienceId}`);
       const experienceData = resp.data.data;
-      
+
       // Extract experience details from first slot's experienceId
       if (experienceData && experienceData.length > 0) {
         setExperience(experienceData[0].experienceId);
@@ -47,34 +47,43 @@ const DisplayDetails = ({ experienceId }) => {
   }, [fetchExperienceById]);
 
   const availableDates = useMemo(() => {
-    return [...new Set(slots.map(slot => slot.date))];
+    return [...new Set(slots.map((slot) => slot.date))];
   }, [slots]);
 
   const availableTimes = useMemo(() => {
-    return [...new Set(slots.map(slot => slot.time))];
+    return [...new Set(slots.map((slot) => slot.time))];
   }, [slots]);
 
   if (isLoading) {
-    return <div className="flex justify-center items-center h-96">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-96">Loading...</div>
+    );
   }
 
   if (!experience) {
-    return <div className="flex justify-center items-center h-96">Experience not found</div>;
+    return (
+      <div className="flex justify-center items-center h-96">
+        Experience not found
+      </div>
+    );
   }
 
   return (
     <div className="details flex justify-between gap-8 m-20">
       <ToastContainer />
-      <div className='flex flex-col flex-3 justify-between '>
+      <div className="flex flex-col flex-3 justify-between ">
         <div className="relative h-80 md:h-96 rounded-lg">
           <Image
-            src={experience.imgSrc || "https://images.unsplash.com/photo-1530789253388-582c481c54b0"}
-            alt={experience.name || "image"}
+            src={
+              experience.imgSrc ||
+              'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+            }
+            alt={experience.name || 'image'}
             fill
             className="object-cover rounded-lg"
           />
         </div>
-        <Details 
+        <Details
           name={experience.name}
           desc={experience.description}
           about={experience.about}
@@ -82,7 +91,7 @@ const DisplayDetails = ({ experienceId }) => {
           availableTime={availableTimes}
         />
       </div>
-      <Cart price={experience.price} taxes={experience.tax} />
+      <Cart goTo="/checkout" />
     </div>
   );
 };

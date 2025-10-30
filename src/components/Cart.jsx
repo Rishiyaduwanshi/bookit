@@ -1,9 +1,11 @@
 'use client';
-import { useEffect } from 'react';
 import useCartStore from '@/store/cart.store';
+import Link from 'next/link';
 
-export default function () {
-  const { price, taxes, discount, quantity, setQuantity, subTotal, total } = useCartStore();
+export default function ({ goTo = "" }) {
+  console.log("ssssssssssssssssss", goTo)
+  const { price, taxes, discount, quantity, setQuantity, subTotal, total } =
+    useCartStore();
 
   function handleDecrement() {
     if (quantity > 0) return setQuantity(quantity - 1);
@@ -48,7 +50,9 @@ export default function () {
         </div>
       </div>
       <div className="bottom">
-        <button className="confirm-btn w-full mt-4 ">Confirm</button>
+        <button className="confirm-btn w-full mt-4 ">
+          <Link href={goTo}>Confirm</Link>
+        </button>
       </div>
     </dl>
   );
