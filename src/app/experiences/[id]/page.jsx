@@ -8,7 +8,7 @@ const ExperienceDetails = () => {
 
   return (
     <>
-      <DisplayDetails/>
+      <DisplayDetails experienceId={id} />
     </>
   );
 };

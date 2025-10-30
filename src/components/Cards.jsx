@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-const Cards = ({ name, location, desc, price, imgSrc }) => {
+const Cards = ({ id, name, location, desc, price, imgSrc }) => {
   return (
     <div className="flex flex-col">
       <div className="image">
@@ -30,7 +31,9 @@ const Cards = ({ name, location, desc, price, imgSrc }) => {
           <p>
             From <span className="text-lg font-bold">&#8377;{price}</span>
           </p>
-          <button className="ml-auto px-2 py-1">View Details</button>
+          <Link href={`/experiences/${id}`}>
+            <button className="ml-auto px-2 py-1">View Details</button>
+          </Link>
         </div>
       </div>
     </div>

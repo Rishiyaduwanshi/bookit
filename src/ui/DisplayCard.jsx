@@ -1,5 +1,5 @@
 // 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Cards from '../components/Cards';
 import api from './api';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,6 +8,7 @@ const Displaycard = () => {
   const [travelData, setTravelData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
+  
   useEffect(() => {
     if (error) {
       const message =
@@ -18,20 +19,21 @@ const Displaycard = () => {
     }
   }, [error]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resp = await api.get('/experiences');
-        setTravelData(resp.data.data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const resp = await api.get('/experiences');
+      setTravelData(resp.data.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <div
@@ -46,6 +48,7 @@ const Displaycard = () => {
         ? travelData.map((item) => (
             <Cards
               key={item._id}
+              id={item._id}
               name={item.name}
               location={item.location}
               imgSrc={item.imgSrc}
