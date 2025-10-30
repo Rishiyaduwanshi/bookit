@@ -1,22 +1,13 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import useCartStore from '@/store/cart.store';
 
-export default function ({ price = 987, taxes = 59 }) {
-  const [quantity, setQuantity] = useState(1);
-  const [subtotal, setSubtotal] = useState(price * quantity);
-  const [total, setTotal] = useState(subtotal + taxes);
+export default function () {
+  const { price, taxes, discount, quantity, setQuantity, subTotal, total } = useCartStore();
 
   function handleDecrement() {
     if (quantity > 0) return setQuantity(quantity - 1);
   }
-
-  useEffect(() => {
-    setSubtotal(price * quantity);
-  }, [quantity]);
-
-  useEffect(() => {
-    setTotal(subtotal + taxes);
-  }, [subtotal]);
 
   return (
     <dl className="cart flex-1 mb-auto hd-bg-tertiary p-5 rounded-lg">
@@ -39,19 +30,25 @@ export default function ({ price = 987, taxes = 59 }) {
         </div>
         <div className="flex justify-between">
           <dt>Subtotal</dt>
-          <dd>&#8377;{subtotal}</dd>
+          <dd>&#8377;{subTotal}</dd>
         </div>
         <div className="flex justify-between">
           <dt>Taxes</dt>
           <dd>&#8377;{taxes}</dd>
         </div>
+        {discount > 0 && (
+          <div className="flex justify-between">
+            <dt>Discount</dt>
+            <dd>&#8377;{discount}</dd>
+          </div>
+        )}
         <div className="flex justify-between border-t border-t-gray-500 pt-2 font-bold">
           <dt>Total</dt>
           <dd>&#8377;{total}</dd>
         </div>
       </div>
       <div className="bottom">
-        <button className='confirm-btn w-full mt-4 '>Confirm</button>
+        <button className="confirm-btn w-full mt-4 ">Confirm</button>
       </div>
     </dl>
   );

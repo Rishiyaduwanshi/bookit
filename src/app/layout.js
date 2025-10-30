@@ -1,6 +1,8 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import { ToastProvider } from '@/context/toastContext';
+import { ToastContainer } from 'react-toastify';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -16,8 +18,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.className} antialiased`}>
       <body>
-        <Navbar />
-        {children}
+        <ToastProvider>
+          <Navbar />
+          {children}
+          <ToastContainer />
+        </ToastProvider>
       </body>
     </html>
   );
