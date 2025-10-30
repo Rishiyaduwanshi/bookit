@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Kayaking",
+    "location": "Udupi, Karnataka",
+    "about": "Scenic routes, trained guides, and safety briefing. Minimum age 10.",
+    "imgSrc": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    "description": "Curated small-group experience. Certified guide. Safety first with gear included. Helmet and life jackets along with an expert will accompany in kayaking.",
+    "price": 1200,
+    "tax": 8
+  },
+  {
+    "name": "Paragliding",
+    "location": "Bir Billing, Himachal Pradesh",
+    "about": "Soar above the Himalayas with India's top-rated paragliding site.",
+    "imgSrc": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1",
+    "description": "Certified pilots ensure a safe and thrilling experience. Includes pre-flight training, photos, and videos of your flight.",
+    "price": 3500,
+    "tax": 12
+  },
+  {
+    "name": "Scuba Diving",
+    "location": "Goa",
+    "about": "Dive into turquoise waters and explore marine life up close.",
+    "imgSrc": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1",
+    "description": "Beginners welcome. Includes equipment, instructor, and underwater photography. Dive up to 10 meters deep.",
+    "price": 2800,
+    "tax": 10
+  },
+  {
+    "name": "Desert Safari",
+    "location": "Jaisalmer, Rajasthan",
+    "about": "Golden dunes, camel rides, and sunset dinners.",
+    "imgSrc": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800",
+    "description": "Includes camel ride, jeep adventure, and evening cultural show with dinner under the stars.",
+    "price": 2200,
+    "tax": 9
+  },
+  {
+    "name": "River Rafting",
+    "location": "Rishikesh, Uttarakhand",
+    "about": "Adrenaline-pumping rapids on the Ganges river.",
+    "imgSrc": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+    "description": "Certified instructors with safety gear and briefing. Includes 16 km rafting and cliff jump opportunity.",
+    "price": 1800,
+    "tax": 8
+  },
+  {
+    "name": "Trekking to Triund",
+    "location": "Dharamshala, Himachal Pradesh",
+    "about": "Panoramic views of Dhauladhar ranges and easy climb.",
+    "imgSrc": "https://images.unsplash.com/photo-1512100356356-de1b84283e18",
+    "description": "Guided trek including camping, bonfire, and meals. Perfect for beginners and families.",
+    "price": 1600,
+    "tax": 7
+  },
+  {
+    "name": "Hot Air Balloon Ride",
+    "location": "Jaipur, Rajasthan",
+    "about": "Bird’s eye view of the pink city with sunrise glow.",
+    "imgSrc": "https://images.unsplash.com/photo-1494972308805-463bc619d34e",
+    "description": "30-minute ride with expert pilot. Includes refreshments and souvenir certificate.",
+    "price": 4500,
+    "tax": 12
+  },
+  {
+    "name": "Snow Skiing",
+    "location": "Gulmarg, Kashmir",
+    "about": "Glide through powder snow with certified trainers.",
+    "imgSrc": "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9",
+    "description": "Includes skis, boots, and training session. Great for beginners and pros alike.",
+    "price": 4000,
+    "tax": 10
+  },
+  {
+    "name": "Backwater Houseboat Stay",
+    "location": "Alleppey, Kerala",
+    "about": "Traditional houseboat cruise through scenic backwaters.",
+    "imgSrc": "https://images.unsplash.com/photo-1503264116251-35a269479413",
+    "description": "Private boat with meals included. Enjoy the calm lagoons and village life along the way.",
+    "price": 5200,
+    "tax": 10
+  },
+  {
+    "name": "Caving Adventure",
+    "location": "Meghalaya",
+    "about": "Explore India’s longest natural caves with expert guides.",
+    "imgSrc": "https://plus.unsplash.com/premium_photo-1700828284504-02bd8d5fb2d4",
+    "description": "Includes headlamps, helmets, and guide support. Not for claustrophobic individuals.",
+    "price": 2500,
+    "tax": 8
+  },
+  {
+    "name": "Bungee Jumping",
+    "location": "Rishikesh, Uttarakhand",
+    "about": "India’s highest fixed platform bungee jump.",
+    "imgSrc": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "description": "Safety-certified setup with trained jump masters. Get your jump certificate and GoPro video.",
+    "price": 3700,
+    "tax": 12
+  },
+  {
+    "name": "Ziplining",
+    "location": "Mussoorie, Uttarakhand",
+    "about": "Fly over valleys and forests with thrilling zip lines.",
+    "imgSrc": "https://images.unsplash.com/photo-1505832018823-50331d70d237",
+    "description": "Helmet, harness, and gloves provided. Safe for all above age 12.",
+    "price": 900,
+    "tax": 5
+  },
+  {
+    "name": "Coffee Plantation Tour",
+    "location": "Coorg, Karnataka",
+    "about": "Aromatic trails through lush coffee estates.",
+    "imgSrc": "https://images.unsplash.com/photo-1505761671935-60b3a7427bad",
+    "description": "Guided walk with tasting session. Learn about bean-to-cup journey of Indian coffee.",
+    "price": 700,
+    "tax": 5
+  },
+  {
+    "name": "Cycling Tour",
+    "location": "Pondicherry",
+    "about": "Leisure ride through colonial streets and seaside paths.",
+    "imgSrc": "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd",
+    "description": "Includes bicycle, helmet, and guide. Refreshments provided mid-way.",
+    "price": 600,
+    "tax": 5
+  },
+  {
+    "name": "Wildlife Safari",
+    "location": "Jim Corbett National Park, Uttarakhand",
+    "about": "Witness tigers and elephants in their natural habitat.",
+    "imgSrc": "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee",
+    "description": "4-hour jeep safari with naturalist guide. Includes park entry fees and refreshments.",
+    "price": 2400,
+    "tax": 9
+  },
+  {
+    "name": "Rock Climbing",
+    "location": "Badami, Karnataka",
+    "about": "Climb historic sandstone cliffs with expert supervision.",
+    "imgSrc": "https://images.unsplash.com/photo-1576904758219-499e790abe6c",
+    "description": "Includes gear, shoes, chalk, and trainer support. Multiple routes for all levels.",
+    "price": 1500,
+    "tax": 6
+  }
+]
