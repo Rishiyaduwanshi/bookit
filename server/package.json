@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "nodemon --env-file=.env.dev server.js",
     "pro": "node --env-file=.env server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "seed:experiences": "node --env-file=.env.dev seeds/experience.seed.js",
+    "seed:slots": "node --env-file=.env.dev seeds/slot.seed.js"
   },
   "keywords": [],
   "author": "",

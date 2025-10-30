@@ -1,0 +1,17 @@
+### 🧩 Environment / Variables
+@baseUrl = http://localhost:5050/api/v1/experiences
+@id = 6903504cbe93b8f725ecdf6b
+
+---
+
+### 🟢 GET all experiences
+GET {{baseUrl}}
+Accept: application/json
+
+---
+
+### 🟢 GET single experience by ID 
+GET {{baseUrl}}/{{id}}
+Accept: application/json
+
+---

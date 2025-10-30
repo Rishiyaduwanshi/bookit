@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { listAllExperiences } from '../controllers/experience.controller.js';
+import { getEachExperience, listAllExperiences } from '../controllers/experience.controller.js';
 
 const router = Router();
 
 router.get('/', listAllExperiences);
+router.get('/:id', getEachExperience);
 
 export default router;
