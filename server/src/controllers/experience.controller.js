@@ -1,11 +1,10 @@
 import experiencesModel from '../models/experiences.model.js';
-import experiences from '../models/experiences.model.js';
 import slotModel from '../models/slot.model.js';
 import appResponse from '../utils/appResponse.js';
 
 export async function listAllExperiences(req, res, next) {
   try {
-    const places = await experiences.find();
+    const places = await experiencesModel.find();
     appResponse(res, {
       message: 'Experiences fetched successfully',
       statusCode: 200,
@@ -25,7 +24,7 @@ export async function getEachExperience(req, res, next) {
       .lean();
     const slotDetails = await slotModel
       .find({ experienceId })
-      .select('-_id date time totalSeats bookedSeats')
+      .select(' date time totalSeats bookedSeats')
       .lean();
 
     appResponse(res, {

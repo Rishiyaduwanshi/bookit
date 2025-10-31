@@ -6,7 +6,6 @@ import Image from 'next/image';
 import api from '../api';
 import { useToast } from '@/context/toastContext';
 import useCartStore from '@/store/cart.store';
-import useBookingStore from '@/store/booking.store';
 
 const DisplayDetails = ({ experienceId }) => {
   const [data, setData] = useState(null);
