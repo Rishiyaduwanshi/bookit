@@ -6,7 +6,7 @@ import useBookingStore from '@/store/booking.store';
 const Details = ({ slots, name, desc, about }) => {
   const [selectedDate, setSelectedDate] = useState();
   const [selectedTime, setSelectedTime] = useState();
-  const { setDate, setTime } = useBookingStore();
+  const { setDate, setTime, setSlotId } = useBookingStore();
 
   const uniqueDates = useMemo(() => {
     const dates = [...new Set(slots.map((slot) => slot.date))];
@@ -46,6 +46,7 @@ const Details = ({ slots, name, desc, about }) => {
       ) {
         setSelectedTime(span.childNodes[0].textContent.trim());
         setTime(span.childNodes[0].textContent.trim());
+        setSlotId(slotId);
       }
     }
   }

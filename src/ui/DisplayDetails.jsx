@@ -6,12 +6,14 @@ import Image from 'next/image';
 import api from '../api';
 import { useToast } from '@/context/toastContext';
 import useCartStore from '@/store/cart.store';
+import useBookingStore from '@/store/booking.store';
 
 const DisplayDetails = ({ experienceId }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { showError } = useToast();
   const { setCart } = useCartStore();
+  const { setExperienceName } = useBookingStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +21,7 @@ const DisplayDetails = ({ experienceId }) => {
         const resp = await api.get(`/experiences/${experienceId}`);
         const data = resp.data.data;
         setCart(data?.price, data?.tax);
+        setExperienceName(data?.name);
         setData(data);
         setIsLoading(false);
       } catch (error) {

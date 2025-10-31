@@ -1,21 +1,84 @@
 'use client';
 import useBookingStore from '@/store/booking.store';
 import useCartStore from '@/store/cart.store';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import api from '@/api';
+import { useToast } from '@/context/toastContext';
 
 export default function ({ goTo = '', dateAndTimeSelected = '' }) {
-  const { price, taxes, discount, quantity, setQuantity, subTotal, total } =
-    useCartStore();
+  const {
+    price,
+    taxes,
+    discount,
+    quantity,
+    setQuantity,
+    subTotal,
+    total,
+    promocode,
+  } = useCartStore();
 
-  const { date, time } = useBookingStore();
+  const { date, time, slotId, name, email, experienceName } = useBookingStore();
+  const router = useRouter();
+  const { showError, showSuccess } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleDecrement() {
     if (quantity > 1) return setQuantity(quantity - 1);
   }
 
+  async function handleConfirm(e) {
+    e.preventDefault();
+
+    if (goTo === '/confirm') {
+      if (!name || !email) {
+        showError('Please fill in your name and email');
+        return;
+      }
+      if (!slotId) {
+        showError('Please select a time slot');
+        return;
+      }
+
+      try {
+        setIsSubmitting(true);
+        const bookingData = {
+          name,
+          email,
+          slotId,
+          quantity,
+        };
+
+        if (promocode) {
+          bookingData.promocode = promocode;
+        }
+
+        const response = await api.post('/bookings', bookingData);
+        showSuccess(response.data.message || 'Booking confirmed successfully!');
+        router.push('/confirm', {
+          state: { bookingId: response.data.data._id },
+        });
+      } catch (error) {
+        showError(error.response?.data?.message || 'Failed to create booking');
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      if (!(date && time)) return;
+      router.push(goTo);
+    }
+  }
+
   return (
     <dl className="cart w-full lg:flex-1 mb-auto hd-bg-tertiary p-4 sm:p-5 rounded-lg text-sm sm:text-base">
       <div className="top flex flex-col justify-center gap-2 w-full">
+        {experienceName && (
+          <div className="flex justify-between">
+            <dt>Experience</dt>
+            <dd>{experienceName}</dd>
+          </div>
+        )}
+
         <div className="flex justify-between">
           <dt>Starts at</dt>
           <dd>{price}</dd>
@@ -72,14 +135,25 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
         </div>
       </div>
       <div className="bottom">
-        <Link
+        <button
+          onClick={handleConfirm}
+          disabled={
+            isSubmitting ||
+            (goTo === '/confirm' && (!name || !email || !slotId))
+          }
           className={`confirm-btn text-center block rounded-md bg-amber-300 w-full mt-4 text-sm sm:text-base ${
-            !(date && time) && 'muted'
+            (!(date && time) ||
+              isSubmitting ||
+              (goTo === '/confirm' && (!name || !email || !slotId))) &&
+            'muted'
           }`}
-          href={goTo}
         >
-          Confirm
-        </Link>
+          {isSubmitting
+            ? 'Processing...'
+            : goTo === '/confirm'
+            ? 'Pay and Confirm'
+            : 'Confirm'}
+        </button>
       </div>
     </dl>
   );

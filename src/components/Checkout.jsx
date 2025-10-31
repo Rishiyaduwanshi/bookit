@@ -3,12 +3,14 @@ import api from '@/api';
 import { useCallback, useState } from 'react';
 import { useToast } from '@/context/toastContext';
 import useCartStore from '@/store/cart.store';
+import useBookingStore from '@/store/booking.store';
 
 const Checkout = () => {
   const [promocode, setPromocode] = useState('');
   const [isApplying, setIsApplying] = useState(false);
   const { showError, showSuccess, showWarning } = useToast();
   const { applyDiscount } = useCartStore();
+  const { name, email, setName, setEmail } = useBookingStore();
 
   const handleApplyPromo = useCallback(async () => {
     try {
@@ -21,7 +23,11 @@ const Checkout = () => {
         promocode,
       });
       showSuccess(resp.data.message);
-      applyDiscount(resp.data.data.discount);
+      applyDiscount(
+        resp.data.data.discount, 
+        resp.data.data._id,
+        promocode
+      );
     } catch (error) {
       showError(error.response.data.message);
     } finally {
@@ -44,6 +50,8 @@ const Checkout = () => {
             id="name"
             placeholder="Your name"
             className="py-2 px-2 w-full  text-sm sm:text-base"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="flex flex-col flex-1 gap-1">
@@ -56,6 +64,8 @@ const Checkout = () => {
             className="py-2 px-2 w-full text-sm sm:text-base"
             placeholder="Your email"
             id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
       </div>

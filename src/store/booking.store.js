@@ -4,7 +4,10 @@ import { create } from 'zustand';
 const useBookingStore = create((set, get) => ({
   date: '',
   time: '',
-  slotId: ' ',
+  slotId: '',
+  name: '',
+  email: '',
+  experienceName: '',
 
   setDate: (dt) => {
     set({
@@ -19,7 +22,27 @@ const useBookingStore = create((set, get) => ({
   },
 
   setSlotId: (slotId) => {
-    
+    set({
+      slotId,
+    });
+  },
+
+  setName: (name) => {
+    set({
+      name,
+    });
+  },
+
+  setEmail: (email) => {
+    set({
+      email,
+    });
+  },
+
+  setExperienceName: (experienceName) => {
+    set({
+      experienceName,
+    });
   },
 }));
 

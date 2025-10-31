@@ -16,7 +16,10 @@ export async function validatePromocode(req, res, next) {
 
     appResponse(res, {
       message: 'Promocode applied successfully',
-      data: { discount: foundPromocode.discount },
+      data: { 
+        discount: foundPromocode.discount,
+        _id: foundPromocode._id 
+      },
     });
   } catch (error) {
     next(error);

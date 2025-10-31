@@ -8,11 +8,13 @@ const useCartStore = create((set, get) => ({
   discount: 0,
   subTotal: 1200,
   total: 1400,
+  promocode: null,
+  promocodeId: null,
 
   setCart: (price, tax) => {
     const { discount, quantity } = get();
     const newSubtotal = price * quantity;
-    const newTotal = newSubtotal + tax - discount;
+    const newTotal = Math.max(0, newSubtotal + tax - discount);
     set({
       price: price,
       taxes: tax,
@@ -24,7 +26,7 @@ const useCartStore = create((set, get) => ({
   setQuantity: (qty) => {
     const { price, taxes, discount } = get();
     const newSubtotal = price * qty;
-    const newTotal = newSubtotal + taxes - discount;
+    const newTotal = Math.max(0, newSubtotal + taxes - discount);
     set({
       quantity: qty,
       subTotal: newSubtotal,
@@ -32,12 +34,17 @@ const useCartStore = create((set, get) => ({
     });
   },
 
-  applyDiscount: (discount) => {
+  applyDiscount: (discount, promocodeId, promocode) => {
     const { subTotal, taxes } = get();
-    const newTotal = subTotal + taxes - discount;
+    // Ensure discount doesn't make total negative
+    const maxDiscount = subTotal + taxes;
+    const validDiscount = Math.min(discount, maxDiscount);
+    const newTotal = Math.max(0, subTotal + taxes - validDiscount);
     set({
-      discount: discount,
+      discount: validDiscount,
       total: newTotal,
+      promocodeId: promocodeId,
+      promocode: promocode,
     });
   },
 }));
