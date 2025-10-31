@@ -8,6 +8,8 @@ const useBookingStore = create((set, get) => ({
   name: '',
   email: '',
   experienceName: '',
+  bookingId: '',
+  termsAccepted: false,
 
   setDate: (dt) => {
     set({
@@ -42,6 +44,18 @@ const useBookingStore = create((set, get) => ({
   setExperienceName: (experienceName) => {
     set({
       experienceName,
+    });
+  },
+
+  setBookingId: (bookingId) => {
+    set({
+      bookingId,
+    });
+  },
+
+  setTermsAccepted: (termsAccepted) => {
+    set({
+      termsAccepted,
     });
   },
 }));

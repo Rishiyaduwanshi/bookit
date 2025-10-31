@@ -10,7 +10,7 @@ const Checkout = () => {
   const [isApplying, setIsApplying] = useState(false);
   const { showError, showSuccess, showWarning } = useToast();
   const { applyDiscount } = useCartStore();
-  const { name, email, setName, setEmail } = useBookingStore();
+  const { name, email, termsAccepted, setName, setEmail, setTermsAccepted } = useBookingStore();
 
   const handleApplyPromo = useCallback(async () => {
     try {
@@ -92,6 +92,8 @@ const Checkout = () => {
           name="tnc"
           id="tnc"
           className="cursor-pointer bg-black"
+          checked={termsAccepted}
+          onChange={(e) => setTermsAccepted(e.target.checked)}
         />
         <label htmlFor="tnc" className="text-gray-600 text-xs sm:text-sm">
           I agree to the terms and safety policy

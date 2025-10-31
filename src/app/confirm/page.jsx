@@ -1,9 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-const Confirm = () => {
+function ConfirmContent() {
+  const searchParams = useSearchParams();
+  const bookingId = searchParams.get('bookingId') || 'N/A';
 
   return (
     <div className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-8 sm:py-12 md:py-16 lg:py-20 items-center">
@@ -21,7 +24,7 @@ const Confirm = () => {
         />
       </svg>
       <h2 className="text-2xl sm:text-3xl font-bold text-center">Booking Confirmed</h2>
-      <p className="text-gray-500 text-sm sm:text-base">Ref ID HUF56&SO</p>
+      <p className="text-gray-500 text-sm sm:text-base">Ref ID: {bookingId}</p>
       <Link
         href="/"
         className="px-4 sm:px-5 py-2 sm:py-2.5 bg-[#E3E3E3] rounded-md font-sans text-[#656565] text-sm sm:text-base hover:bg-gray-300 transition"
@@ -29,6 +32,18 @@ const Confirm = () => {
         Back to Home
       </Link>
     </div>
+  );
+}
+
+const Confirm = () => {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-8 sm:py-12 md:py-16 lg:py-20 items-center">
+        <p>Loading...</p>
+      </div>
+    }>
+      <ConfirmContent />
+    </Suspense>
   );
 };
 
