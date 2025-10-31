@@ -1,5 +1,5 @@
 'use client';
-import api from '@/ui/api';
+import api from '@/api';
 import { useCallback, useState } from 'react';
 import { useToast } from '@/context/toastContext';
 import useCartStore from '@/store/cart.store';

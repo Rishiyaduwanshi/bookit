@@ -1,45 +1,61 @@
 'use client';
 
 import { useState } from 'react';
+import useBookingStore from '@/store/booking.store';
 
-const Details = ({
-  name = 'Kayaking',
-  desc = 'Curated small-group experience. Certified guide. Safety first with gear included. Helmet and Life jackets along with an expert will accompany in kayaking.',
-  availableDates = ['Oct 22', 'Oct 23', 'Oct 24', 'Oct 25', 'Oct 26'],
-  availableTime = ['07:00 am', '09:00 am', '11:00 am'],
-  about = 'Scenic routes, trained guides, and safety briefing. Minimum age 10.',
-}) => {
-  const [isSelected, setIsSelected] = useState(null);
+const Details = ({ slots, name, desc, about }) => {
+  const [selectedDate, setSelectedDate] = useState();
+  const [selectedTime, setSelectedTime] = useState();
+  const { setDate, setTime } = useBookingStore();
 
-  function handleDateSelect() {}
-  function handleTimeSelect() {}
+  function handleDateSelect(e) {
+    if (e.target.tagName === 'SPAN') {
+      setSelectedDate(e.target.textContent);
+      setDate(e.target.textContent);
+    }
+  }
+  function handleTimeSelect(e) {
+    if (e.target.tagName === 'SPAN') {
+      setSelectedTime(e.target.textContent);
+      setTime(e.target.textContent);
+    }
+  }
+
   return (
     <div className="flex flex-col mt-10 gap-4">
       <h2 className="text-xl font-bold">{name}</h2>
       <p className="text-gray-500">{desc}</p>
       <div className="slots flex flex-col gap-2">
-        <div className="date-slots" onClick={handleDateSelect}>
+        <div className="date-slots" onClick={(e) => handleDateSelect(e)}>
           <h3 className="text-xl">Choose date</h3>
-          {availableDates.map((d, idx) => {
+          {slots.map(({ date }, idx) => {
             return (
               <span
-                className="py-2 cursor-pointer inline-block px-3 m-2 border border-gray-300 text-gray-500 rounded-md"
+                className={`py-2 inline-block cursor-pointer px-3 m-2 border rounded-md  ${
+                  selectedDate === date
+                    ? 'bg-amber-300 text-gray-950 border-0'
+                    : 'border-gray-300 text-gray-500'
+                } `}
                 key={idx}
               >
-                {d}
+                {date}
               </span>
             );
           })}
         </div>
-        <div className="time-slots" onClick={handleTimeSelect}>
+        <div className="time-slots" onClick={(e) => handleTimeSelect(e)}>
           <h3 className="text-xl">Choose time</h3>
-          {availableTime.map((t, idx) => {
+          {slots.map(({ time }, idx) => {
             return (
               <span
-                className="py-2 inline-block cursor-pointer px-3 m-2 border border-gray-300 text-gray-500 rounded-md "
+                className={`py-2 inline-block cursor-pointer px-3 m-2 border rounded-md  ${
+                  selectedTime === time
+                    ? 'bg-amber-300 text-gray-950 border-0'
+                    : 'border-gray-300 text-gray-500'
+                } `}
                 key={idx}
               >
-                {t}
+                {time}
               </span>
             );
           })}

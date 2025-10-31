@@ -1,14 +1,16 @@
 'use client';
+import useBookingStore from '@/store/booking.store';
 import useCartStore from '@/store/cart.store';
 import Link from 'next/link';
 
-export default function ({ goTo = "" }) {
-  console.log("ssssssssssssssssss", goTo)
+export default function ({ goTo = '', dateAndTimeSelected = '' }) {
   const { price, taxes, discount, quantity, setQuantity, subTotal, total } =
     useCartStore();
 
+  const { date, time } = useBookingStore();
+
   function handleDecrement() {
-    if (quantity > 0) return setQuantity(quantity - 1);
+    if (quantity > 1) return setQuantity(quantity - 1);
   }
 
   return (
@@ -18,14 +20,34 @@ export default function ({ goTo = "" }) {
           <dt>Starts at</dt>
           <dd>{price}</dd>
         </div>
+
+        {date && (
+          <div className="flex justify-between">
+            <dt>Date</dt>
+            <dd>{date}</dd>
+          </div>
+        )}
+
+        {time && (
+          <div className="flex justify-between">
+            <dt>Time</dt>
+            <dd>{time}</dd>
+          </div>
+        )}
         <div className="flex justify-between">
           <dt>Quantity</dt>
           <span className="quantifier">
-            <span className="" onClick={handleDecrement}>
+            <span
+              className={dateAndTimeSelected === 'selected' ? 'hidden!' : ''}
+              onClick={handleDecrement}
+            >
               -
             </span>
             <dd>{quantity}</dd>
-            <span className="" onClick={() => setQuantity(quantity + 1)}>
+            <span
+              className={dateAndTimeSelected === 'selected' ? 'hidden!' : ''}
+              onClick={() => setQuantity(quantity + 1)}
+            >
               +
             </span>
           </span>
@@ -50,9 +72,14 @@ export default function ({ goTo = "" }) {
         </div>
       </div>
       <div className="bottom">
-        <button className="confirm-btn w-full mt-4 ">
-          <Link href={goTo}>Confirm</Link>
-        </button>
+        <Link
+          className={`confirm-btn text-center block rounded-md bg-amber-300  w-full mt-4 ${
+            !(date && time) && 'muted'
+          }`}
+          href={goTo}
+        >
+          Confirm
+        </Link>
       </div>
     </dl>
   );

@@ -1,3 +1,4 @@
+import experiencesModel from '../models/experiences.model.js';
 import experiences from '../models/experiences.model.js';
 import slotModel from '../models/slot.model.js';
 import appResponse from '../utils/appResponse.js';
@@ -18,15 +19,19 @@ export async function listAllExperiences(req, res, next) {
 export async function getEachExperience(req, res, next) {
   try {
     const experienceId = req.params.id;
-    const experienceDetails = await slotModel
+    const experienceDetails = await experiencesModel
+      .findById(experienceId)
+      .select('-__v')
+      .lean();
+    const slotDetails = await slotModel
       .find({ experienceId })
-      .populate('experienceId', '-__v')
+      .select('-_id date time totalSeats bookedSeats')
       .lean();
 
     appResponse(res, {
       message: 'Experience details fetched successfully',
       statusCode: 200,
-      data: experienceDetails,
+      data: { ...experienceDetails, slotDetails },
     });
   } catch (error) {
     next(error);

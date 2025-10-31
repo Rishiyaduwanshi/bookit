@@ -9,7 +9,7 @@ const ExperienceDetails = () => {
 
   return (
     <>
-      <BackButton title="Details" className="left-25" />
+      <BackButton title="Details" className="" />
       <DisplayDetails experienceId={id} />
     </>
   );

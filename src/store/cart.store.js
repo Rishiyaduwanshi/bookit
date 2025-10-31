@@ -9,6 +9,18 @@ const useCartStore = create((set, get) => ({
   subTotal: 1200,
   total: 1400,
 
+  setCart: (price, tax) => {
+    const { discount, quantity } = get();
+    const newSubtotal = price * quantity;
+    const newTotal = newSubtotal + tax - discount;
+    set({
+      price: price,
+      taxes: tax,
+      subTotal: newSubtotal,
+      total: newTotal,
+    });
+  },
+
   setQuantity: (qty) => {
     const { price, taxes, discount } = get();
     const newSubtotal = price * qty;
@@ -30,4 +42,4 @@ const useCartStore = create((set, get) => ({
   },
 }));
 
-export default useCartStore
+export default useCartStore;

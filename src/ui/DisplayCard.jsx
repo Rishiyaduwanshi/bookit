@@ -1,21 +1,22 @@
 // 'use client';
 import React, { useEffect, useState, useCallback } from 'react';
 import Cards from '../components/Cards';
-import api from './api';
-import { ToastContainer, toast } from 'react-toastify';
+import api from '../api';
+import { useToast } from '@/context/toastContext';
 
 const Displaycard = () => {
   const [travelData, setTravelData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
-  
+  const { showError } = useToast();
+
   useEffect(() => {
     if (error) {
       const message =
         typeof error === 'string'
           ? error
           : error?.message || 'Something went wrong';
-      toast.error(message);
+      showError(message);
     }
   }, [error]);
 
@@ -43,7 +44,6 @@ const Displaycard = () => {
             lg:grid-cols-3 
             xl:grid-cols-4  m-20"
     >
-      <ToastContainer />
       {!isLoading
         ? travelData.map((item) => (
             <Cards

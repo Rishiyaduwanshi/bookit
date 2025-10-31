@@ -9,7 +9,7 @@ const page = () => {
       <BackButton title="checkout" className="left-20" />
       <div className="flex m-20 gap-8">
         <Checkout />
-        <Cart goTo="/confirm" />
+        <Cart goTo="/confirm"  dateAndTimeSelected='selected' />
       </div>
     </>
   );

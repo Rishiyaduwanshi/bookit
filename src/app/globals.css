@@ -122,6 +122,7 @@ input {
 .muted {
   color: var(--hd-text-muted);
   background-color: var(--hd-bg-tertiary-accent);
+  pointer-events: none;
   cursor: not-allowed;
 }
 

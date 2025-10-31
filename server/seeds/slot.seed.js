@@ -29,14 +29,21 @@ const seedSlots = async () => {
         {
           experienceId: exp._id,
           date: dayjs().add(2, 'day').format('YYYY-MM-DD'),
-          time: '04:00 PM',
+          time: '02:00 PM',
           totalSeats: 10,
           bookedSeats: 0,
         },
         {
           experienceId: exp._id,
           date: dayjs().add(3, 'day').format('YYYY-MM-DD'),
-          time: '09:00 AM',
+          time: '06:00 PM',
+          totalSeats: 10,
+          bookedSeats: 0,
+        },
+        {
+          experienceId: exp._id,
+          date: dayjs().add(4, 'day').format('YYYY-MM-DD'),
+          time: '03:00 PM',
           totalSeats: 10,
           bookedSeats: 0,
         }

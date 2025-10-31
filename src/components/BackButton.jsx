@@ -2,11 +2,7 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-export default function BackHeader({
-  title = 'Back',
-  backTo = '',
-  className = '',
-}) {
+export default function BackHeader({ title = 'Back', backTo = '' }) {
   const router = useRouter();
 
   function handleBack() {
@@ -16,7 +12,7 @@ export default function BackHeader({
 
   return (
     <div
-      className={` ${className} flex items-center relative gap-1 top-15 cursor-pointer`}
+      className={` relative ml-20  flex items-center  gap-1 top-15 cursor-pointer`}
       onClick={handleBack}
     >
       <Image
