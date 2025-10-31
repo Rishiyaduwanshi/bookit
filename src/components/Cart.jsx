@@ -14,7 +14,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
   }
 
   return (
-    <dl className="cart flex-1 mb-auto hd-bg-tertiary p-5 rounded-lg">
+    <dl className="cart w-full lg:flex-1 mb-auto hd-bg-tertiary p-4 sm:p-5 rounded-lg text-sm sm:text-base">
       <div className="top flex flex-col justify-center gap-2 w-full">
         <div className="flex justify-between">
           <dt>Starts at</dt>
@@ -24,17 +24,17 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
         {date && (
           <div className="flex justify-between">
             <dt>Date</dt>
-            <dd>{date}</dd>
+            <dd className="text-right wrap-break-word">{date}</dd>
           </div>
         )}
 
         {time && (
           <div className="flex justify-between">
             <dt>Time</dt>
-            <dd>{time}</dd>
+            <dd className="text-right wrap-break-word">{time}</dd>
           </div>
         )}
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <dt>Quantity</dt>
           <span className="quantifier">
             <span
@@ -73,7 +73,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
       </div>
       <div className="bottom">
         <Link
-          className={`confirm-btn text-center block rounded-md bg-amber-300  w-full mt-4 ${
+          className={`confirm-btn text-center block rounded-md bg-amber-300 w-full mt-4 text-sm sm:text-base ${
             !(date && time) && 'muted'
           }`}
           href={goTo}

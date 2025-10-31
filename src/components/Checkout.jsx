@@ -32,36 +32,46 @@ const Checkout = () => {
   }, [promocode]);
 
   return (
-    <div className="flex flex-3 flex-col gap-3 bg-gray-200 px-6 pt-6 rounded-lg">
-      <div className="flex gap-4 w-full">
+    <div className="flex flex-1 lg:flex-3 flex-col gap-3 sm:gap-5 bg-gray-200 px-4 sm:px-6 pt-4 sm:pt-6 pb-4 rounded-lg">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
         <div className="flex flex-col flex-1 gap-1">
-          <label htmlFor="name">Full name</label>
-          <input type="text" name="" id="name" placeholder="Your name" />
+          <label htmlFor="name" className="text-sm sm:text-base">
+            Full name
+          </label>
+          <input
+            type="text"
+            name=""
+            id="name"
+            placeholder="Your name"
+            className="py-2 px-2 w-full  text-sm sm:text-base"
+          />
         </div>
         <div className="flex flex-col flex-1 gap-1">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="text-sm sm:text-base">
+            Email
+          </label>
           <input
             type="email"
             name=""
-            className="text-black"
+            className="py-2 px-2 w-full text-sm sm:text-base"
             placeholder="Your email"
             id="email"
           />
         </div>
       </div>
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
         <input
           onChange={(e) => setPromocode(e.target.value.trim().toUpperCase())}
           type="text"
           placeholder="Promo code"
-          className="py-2 w-[90%]"
+          className="py-2 px-2 w-full sm:w-[70%] text-sm sm:text-base"
           value={promocode}
         />
         <span
           onClick={handleApplyPromo}
           className={` ${
             isApplying ? 'muted' : ''
-          }  px-3 py-2 flex-1 rounded-md cursor-pointer text-center bg-black text-amber-100 `}
+          }  px-3 py-2 flex-1 rounded-md cursor-pointer text-center bg-black text-amber-100 text-sm sm:text-base`}
         >
           Apply
         </span>
@@ -73,7 +83,7 @@ const Checkout = () => {
           id="tnc"
           className="cursor-pointer bg-black"
         />
-        <label htmlFor="tnc" className="text-gray-600">
+        <label htmlFor="tnc" className="text-gray-600 text-xs sm:text-sm">
           I agree to the terms and safety policy
         </label>
       </div>

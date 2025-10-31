@@ -27,7 +27,7 @@ body {
   color: var(--hd-bg-primary);
   background-color: var(--hd-text-primary);
   font-family: var(--font-inter);
-
+  overflow-x: hidden;
 }
 
 button {
@@ -36,13 +36,22 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.9;
 }
 
 input {
   background-color: var(--hd-bg-tertiary);
-  color: var(--hd-text-primary);
-  padding: 6px 10px;
   border-radius: 4px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  border-color: none;
 }
 
 ::placeholder {
@@ -102,30 +111,55 @@ input {
   align-items: center;
   justify-content: center;
   user-select: none;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border: 1px solid var(--hd-bg-tertiary-accent);
   cursor: pointer;
   transition: all 0.2s ease;
+  border-radius: 4px;
 }
-
 
 .confirm-btn {
   padding-block: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cart .top>div:not(:last-child) dt {
   color: var(--hd-text-muted);
 }
 
-
 .muted {
   color: var(--hd-text-muted);
   background-color: var(--hd-bg-tertiary-accent);
   pointer-events: none;
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .selected {
   background-color: var(--hd-btn-primary);
+}
+
+/* 📱 Responsive utilities */
+@media (max-width: 640px) {
+  .quantifier span {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+/* ✨ Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 🎯 Image optimization */
+img {
+  max-width: 100%;
+  height: auto;
 }

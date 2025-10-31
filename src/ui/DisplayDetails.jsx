@@ -46,9 +46,9 @@ const DisplayDetails = ({ experienceId }) => {
   }
 
   return (
-    <div className="details flex justify-between gap-8 m-20">
-      <div className="flex flex-col flex-3 justify-between ">
-        <div className="relative h-80 md:h-96 rounded-lg">
+    <div className="details flex flex-col lg:flex-row justify-between gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-4 sm:py-6">
+      <div className="flex flex-col flex-1 lg:flex-3 justify-between">
+        <div className="relative h-64 sm:h-80 md:h-96 rounded-lg">
           <Image
             src={
               data.imgSrc ||
@@ -66,7 +66,9 @@ const DisplayDetails = ({ experienceId }) => {
           slots={data.slotDetails}
         />
       </div>
-      <Cart goTo="/checkout" />
+      <div className="w-full lg:w-auto lg:min-w-[300px] xl:min-w-[350px]">
+        <Cart goTo="/checkout" />
+      </div>
     </div>
   );
 };

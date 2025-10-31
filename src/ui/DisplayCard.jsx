@@ -38,11 +38,11 @@ const Displaycard = () => {
 
   return (
     <div
-      className="card-containers grid gap-6 p-6 
-            sm:grid-cols-1 
-            md:grid-cols-2 
+      className="card-containers grid gap-4 sm:gap-5 md:gap-6 p-4 sm:p-6 md:p-8 lg:p-12 xl:p-20
+            grid-cols-1 
+            sm:grid-cols-2 
             lg:grid-cols-3 
-            xl:grid-cols-4  m-20"
+            xl:grid-cols-4"
     >
       {!isLoading
         ? travelData.map((item) => (
