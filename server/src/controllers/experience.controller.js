@@ -4,7 +4,21 @@ import appResponse from '../utils/appResponse.js';
 
 export async function listAllExperiences(req, res, next) {
   try {
-    const places = await experiencesModel.find();
+    const { search } = req.query;
+    
+    let query = {};
+    
+    if (search) {
+      query = {
+        $or: [
+          { name: { $regex: search, $options: 'i' } },
+          { location: { $regex: search, $options: 'i' } },
+          { description: { $regex: search, $options: 'i' } },
+        ],
+      };
+    }
+    
+    const places = await experiencesModel.find(query);
     appResponse(res, {
       message: 'Experiences fetched successfully',
       statusCode: 200,

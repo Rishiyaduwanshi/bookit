@@ -4,7 +4,7 @@ import Cards from '../components/Cards';
 import api from '../api';
 import { useToast } from '@/context/toastContext';
 
-const Displaycard = () => {
+const Displaycard = ({ searchQuery }) => {
   const [travelData, setTravelData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
@@ -23,14 +23,17 @@ const Displaycard = () => {
   const fetchData = useCallback(async () => {
     try {
       setIsLoading(true);
-      const resp = await api.get('/experiences');
+      const url = searchQuery 
+        ? `/experiences?search=${encodeURIComponent(searchQuery)}`
+        : '/experiences';
+      const resp = await api.get(url);
       setTravelData(resp.data.data);
     } catch (error) {
       setError(error);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [searchQuery]);
 
   useEffect(() => {
     fetchData();
@@ -44,19 +47,27 @@ const Displaycard = () => {
             lg:grid-cols-3 
             xl:grid-cols-4"
     >
-      {!isLoading
-        ? travelData.map((item) => (
-            <Cards
-              key={item._id}
-              id={item._id}
-              name={item.name}
-              location={item.location}
-              imgSrc={item.imgSrc}
-              desc={item.description}
-              price={item.price}
-            />
-          ))
-        : 'Loading'}
+      {isLoading ? (
+        <div className="col-span-full text-center py-10">Loading...</div>
+      ) : travelData.length > 0 ? (
+        travelData.map((item) => (
+          <Cards
+            key={item._id}
+            id={item._id}
+            name={item.name}
+            location={item.location}
+            imgSrc={item.imgSrc}
+            desc={item.description}
+            price={item.price}
+          />
+        ))
+      ) : (
+        <div className="col-span-full text-center py-10 text-gray-500">
+          {searchQuery 
+            ? `No experiences found for "${searchQuery}"`
+            : 'No experiences available'}
+        </div>
+      )}
     </div>
   );
 };
