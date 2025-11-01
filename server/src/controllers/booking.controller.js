@@ -1,4 +1,6 @@
 import Booking from '../models/booking.model.js';
+import { createRazorpayOrder } from '../services/razorpay.service.js';
+import Experience from '../models/experiences.model.js';
 import Slot from '../models/slot.model.js';
 import PromoCode from '../models/promocode.model.js';
 import {
@@ -7,6 +9,7 @@ import {
   GoneError,
 } from '../utils/appError.js';
 import appResponse from '../utils/appResponse.js';
+import { config } from '../../config/index.js';
 
 export async function bookExperience(req, res, next) {
   try {
@@ -45,7 +48,18 @@ export async function bookExperience(req, res, next) {
     }
 
     slotData.bookedSeats += quantity;
+
+    const experienceData = await Experience.findById(slotData.experienceId);
+
     await slotData.save();
+
+    //TotalAmount calculation
+    const { tax, price } = experienceData;
+    let totalAmount = price * quantity + tax;
+    if (appliedPromo) {
+      const discount = (totalAmount * appliedPromo.discountPercentage) / 100;
+      totalAmount -= discount;
+    }
 
     const booking = await Booking.create({
       name,
@@ -53,12 +67,26 @@ export async function bookExperience(req, res, next) {
       slot: slotData._id,
       quantity,
       promocode: appliedPromo ? appliedPromo._id : null,
+      status: 'pending',
     });
 
+    const razorOrder = await createRazorpayOrder(
+      totalAmount,
+      `booking_${booking._id}`
+    );
+
+    booking.razorOrderId = razorOrder.id;
+    await booking.save();
+
     return appResponse(res, {
-      message: 'Booking successful!',
+      message: 'Booking initiated, proceed to payment',
+      statusCode: 201,
       data: {
-        booking,
+        bookingId: booking._id,
+        razorId: razorOrder.id,
+        receipt: razorOrder.receipt,
+        razorKey: config.RAZORPAY_KEY_ID,
+        amount: totalAmount,
         appliedPromo: appliedPromo
           ? {
               code: appliedPromo.code,

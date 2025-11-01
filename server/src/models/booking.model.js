@@ -25,6 +25,19 @@ const bookingSchema = new mongoose.Schema(
       ref: 'PromoCode',
       default: null,
     },
+    razorOrderId: {
+      type: String,
+      default: null, 
+    },
+    razorPaymentId: {
+      type: String,
+      default: null, 
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'confirmed', 'failed'],
+      default: 'pending', 
+    },
   },
   { timestamps: true }
 );

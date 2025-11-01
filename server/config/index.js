@@ -30,6 +30,12 @@ const jwtConfig = {
     JWT_REFRESH_EXPIRY: process.env.JWT_REFRESH_EXPIRY ?? '7d',
 };
 
+// ====== Razor Config ======
+const razorConfig = {
+    RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID ?? '',
+    RAZORPAY_KEY_SECRET: process.env.RAZORPAY_KEY_SECRET ?? ''
+};
+
 // ====== Allowed Origins Config ======
 const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',')  
@@ -68,5 +74,6 @@ export const config = Object.freeze({
     ...appConfig,
     ...jwtConfig,
     ...rateLimitConfig,
+    ...razorConfig,
     ALLOWED_ORIGINS
 });
