@@ -18,7 +18,16 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
     promocode,
   } = useCartStore();
 
-  const { date, time, slotId, name, email, experienceName, termsAccepted, setBookingId } = useBookingStore();
+  const {
+    date,
+    time,
+    slotId,
+    name,
+    email,
+    experienceName,
+    termsAccepted,
+    setBookingId,
+  } = useBookingStore();
   const router = useRouter();
   const { showError, showSuccess } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,7 +68,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
 
         const response = await api.post('/bookings', bookingData);
         showSuccess(response.data.message || 'Booking confirmed successfully!');
-        
+
         // Save booking ID and redirect with it
         const bookingId = response.data.data.booking._id;
         setBookingId(bookingId);
@@ -145,12 +154,14 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
           onClick={handleConfirm}
           disabled={
             isSubmitting ||
-            (goTo === '/confirm' && (!name || !email || !slotId || !termsAccepted))
+            (goTo === '/confirm' &&
+              (!name || !email || !slotId || !termsAccepted))
           }
           className={`confirm-btn text-center block rounded-md bg-amber-300 w-full mt-4 text-sm sm:text-base ${
             (!(date && time) ||
               isSubmitting ||
-              (goTo === '/confirm' && (!name || !email || !slotId || !termsAccepted))) &&
+              (goTo === '/confirm' &&
+                (!name || !email || !slotId || !termsAccepted))) &&
             'muted'
           }`}
         >

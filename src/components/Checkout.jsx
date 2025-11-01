@@ -10,7 +10,8 @@ const Checkout = () => {
   const [isApplying, setIsApplying] = useState(false);
   const { showError, showSuccess, showWarning } = useToast();
   const { applyDiscount } = useCartStore();
-  const { name, email, termsAccepted, setName, setEmail, setTermsAccepted } = useBookingStore();
+  const { name, email, termsAccepted, setName, setEmail, setTermsAccepted } =
+    useBookingStore();
 
   const handleApplyPromo = useCallback(async () => {
     try {
@@ -23,11 +24,7 @@ const Checkout = () => {
         promocode,
       });
       showSuccess(resp.data.message);
-      applyDiscount(
-        resp.data.data.discount, 
-        resp.data.data._id,
-        promocode
-      );
+      applyDiscount(resp.data.data.discount, resp.data.data._id, promocode);
     } catch (error) {
       showError(error.response.data.message);
     } finally {
@@ -38,7 +35,7 @@ const Checkout = () => {
   }, [promocode]);
 
   return (
-    <div className="flex flex-1 lg:flex-3 flex-col gap-3 sm:gap-5 bg-gray-200 px-4 sm:px-6 pt-4 sm:pt-6 pb-4 rounded-lg">
+    <div className="flex flex-1 lg:flex-3 flex-col gap-3 sm:gap-5 bg-gray-200 sm:px-6 p-4 rounded-lg h-fit">
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
         <div className="flex flex-col flex-1 gap-1">
           <label htmlFor="name" className="text-sm sm:text-base">
@@ -86,7 +83,7 @@ const Checkout = () => {
           Apply
         </span>
       </div>
-      <div className="flex gap-2 mt-1">
+      <div className="flex gap-2">
         <input
           type="checkbox"
           name="tnc"
