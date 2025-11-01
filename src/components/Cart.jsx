@@ -2,7 +2,7 @@
 import useBookingStore from '@/store/booking.store';
 import useCartStore from '@/store/cart.store';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '@/api';
 import { useToast } from '@/context/toastContext';
 import { ButtonLoader } from './loading';
@@ -18,7 +18,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
     subTotal,
     total,
     promocode,
-    setDiscount
+    setDiscount,
   } = useCartStore();
 
   const {
@@ -39,6 +39,13 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
     if (quantity > 1) return setQuantity(quantity - 1);
   }
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   async function handleConfirm(e) {
     e.preventDefault();
 
@@ -58,24 +65,44 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
 
       try {
         setIsSubmitting(true);
+
         const bookingData = {
           name,
           email,
           slotId,
           quantity,
+          ...(promocode && { promocode }),
         };
 
-        if (promocode) {
-          bookingData.promocode = promocode;
-        }
+        const bookingResp = await api.post('/bookings', bookingData);
+        const { bookingId, razorId, amount, razorKey } = bookingResp.data.data;
 
-        const response = await api.post('/bookings', bookingData);
-        showSuccess(response.data.message || 'Booking confirmed successfully!');
-        setDiscount(0);
+        const options = {
+          key: razorKey, 
+          amount: amount,
+          currency: 'INR',
+          name: 'BookIt',
+          description: 'Experience Booking',
+          order_id: razorId,
+          handler: async function (response) {
+            try {
+              const verifyRes = await api.post(
+                '/bookings/verifypayment',
+                response
+              );
 
-        const bookingId = response.data.data.booking._id;
-        setBookingId(bookingId);
-        router.push(`/confirm?bookingId=${bookingId}`);
+              showSuccess('Payment successful!');
+              setBookingId(bookingId);
+              router.push(`/confirm?bookingId=${bookingId}`);
+            } catch (err) {
+              showError('Payment verification failed.');
+            }
+          },
+          theme: { color: '#FACC15' },
+        };
+
+        const razor = new window.Razorpay(options);
+        razor.open();
       } catch (error) {
         showError(error.response?.data?.message || 'Failed to create booking');
       } finally {
@@ -143,7 +170,12 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
         </div>
         {discount > 0 && (
           <div className="flex justify-between text-green-500!">
-            <dt className='text-green-500!'>Discount {discountPercentage > 0 ? `(${promocode} - ${discountPercentage}%)` : `(${promocode})`}</dt>
+            <dt className="text-green-500!">
+              Discount{' '}
+              {discountPercentage > 0
+                ? `(${promocode} - ${discountPercentage}%)`
+                : `(${promocode})`}
+            </dt>
             <dd> - &#8377;{discount}</dd>
           </div>
         )}

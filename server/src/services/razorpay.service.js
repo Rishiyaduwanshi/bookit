@@ -1,6 +1,6 @@
 import Razorpay from 'razorpay';
-import { config } from '../../config';
-import { BadRequestError } from '../utils/appError';
+import { config } from '../../config/index.js';
+import { BadRequestError } from '../utils/appError.js';
 import { createHmac } from 'node:crypto';
 
 const razor = new Razorpay({
