@@ -47,11 +47,7 @@ export async function bookExperience(req, res, next) {
       appliedPromo = promo;
     }
 
-    slotData.bookedSeats += quantity;
-
     const experienceData = await Experience.findById(slotData.experienceId);
-
-    await slotData.save();
 
     //TotalAmount calculation
     const { tax, price } = experienceData;
@@ -61,6 +57,7 @@ export async function bookExperience(req, res, next) {
       totalAmount -= discount;
     }
 
+    // Create booking with pending status - DON'T book seats yet
     const booking = await Booking.create({
       name,
       email,

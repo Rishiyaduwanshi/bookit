@@ -96,16 +96,24 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
               router.push(`/confirm?bookingId=${bookingId}`);
             } catch (err) {
               showError('Payment verification failed.');
+            } finally {
+              setIsSubmitting(false);
             }
+          },
+          modal: {
+            ondismiss: function () {
+              showError('Payment cancelled. Booking not confirmed.');
+              setIsSubmitting(false);
+            },
           },
           theme: { color: '#FACC15' },
         };
 
         const razor = new window.Razorpay(options);
         razor.open();
+        setIsSubmitting(false); // Reset immediately after opening modal
       } catch (error) {
         showError(error.response?.data?.message || 'Failed to create booking');
-      } finally {
         setIsSubmitting(false);
       }
     } else {
