@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import { ToastProvider } from '@/context/toastContext';
 import { ToastContainer } from 'react-toastify';
+import { Suspense } from 'react';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -22,7 +23,15 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${inter.className} antialiased`}>
       <body>
         <ToastProvider>
-          <Navbar />
+          <Suspense fallback={
+            <nav className="text-amber-10 hd-bg-color flex sm:flex-row justify-between items-center gap-3 sm:gap-0 min-h-20 px-4 sm:px-8 md:px-12 lg:px-20 py-3 sm:py-2 shadow-md">
+              <div className="left w-sm sm:w-auto flex justify-center sm:justify-start">
+                <img src="/logo.svg" alt="Highway Delite Logo" className="h-5 sm:h-12" />
+              </div>
+            </nav>
+          }>
+            <Navbar />
+          </Suspense>
           {children}
           <ToastContainer />
         </ToastProvider>

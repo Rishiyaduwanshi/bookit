@@ -96,7 +96,7 @@ const Checkout = () => {
       </div>
       {discount > 0 ? (
         <p className="text-green-500 text-sm -mt-2 ml-1">
-          ✓ Promo code applied! You saved ₹{Math.round(discount)} ({discountPercentage}% off)
+          ✓ Promo code applied! You saved ₹{discount} ({discountPercentage}% off)
         </p>
       ) : (
         ''

@@ -143,8 +143,8 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
         </div>
         {discount > 0 && (
           <div className="flex justify-between text-green-500!">
-            <dt className='text-green-500!'>Discount {`(${promocode})`}</dt>
-            <dd> - &#8377;{Math.round(discount)}</dd>
+            <dt className='text-green-500!'>Discount {discountPercentage > 0 ? `(${promocode} - ${discountPercentage}%)` : `(${promocode})`}</dt>
+            <dd> - &#8377;{discount}</dd>
           </div>
         )}
         <div className="flex justify-between border-t border-t-gray-500 pt-2 font-bold">
