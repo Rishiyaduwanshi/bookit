@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import api from '@/api';
 import { useToast } from '@/context/toastContext';
+import { ButtonLoader } from './loading';
 
 export default function ({ goTo = '', dateAndTimeSelected = '' }) {
   const {
@@ -165,11 +166,13 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
             'muted'
           }`}
         >
-          {isSubmitting
-            ? 'Processing...'
-            : goTo === '/confirm'
-            ? 'Pay and Confirm'
-            : 'Confirm'}
+          {isSubmitting ? (
+            <ButtonLoader text="Processing" spinnerColor="black" />
+          ) : goTo === '/confirm' ? (
+            'Pay and Confirm'
+          ) : (
+            'Confirm'
+          )}
         </button>
       </div>
     </dl>

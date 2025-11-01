@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import { useToast } from '@/context/toastContext';
 import useCartStore from '@/store/cart.store';
 import useBookingStore from '@/store/booking.store';
+import { ButtonLoader } from './loading';
 
 const Checkout = () => {
   const [promocode, setPromocode] = useState('');
@@ -73,14 +74,15 @@ const Checkout = () => {
           placeholder="Promo code"
           className="py-2 px-2 w-full sm:w-[70%] text-sm sm:text-base"
           value={promocode}
+          disabled={isApplying}
         />
         <span
-          onClick={handleApplyPromo}
+          onClick={isApplying ? null : handleApplyPromo}
           className={` ${
-            isApplying ? 'muted' : ''
-          }  px-3 py-2 flex-1 rounded-md cursor-pointer text-center bg-black text-amber-100 text-sm sm:text-base`}
+            isApplying ? 'muted cursor-not-allowed' : 'cursor-pointer'
+          }  px-3 py-2 flex-1 rounded-md text-center bg-black text-amber-100 text-sm sm:text-base`}
         >
-          Apply
+          {isApplying ? <ButtonLoader text="Applying" spinnerColor="yellow" /> : 'Apply'}
         </span>
       </div>
       <div className="flex gap-2">

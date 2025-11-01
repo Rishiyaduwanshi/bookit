@@ -2,6 +2,7 @@
 import DisplayCard from "@/ui/DisplayCard";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { HomePageSkeleton } from "@/components/loading";
 
 function HomeContent() {
   const searchParams = useSearchParams();
@@ -12,11 +13,7 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={
-      <div className="p-4 sm:p-6 md:p-8 lg:p-12 xl:p-20 text-center">
-        Loading...
-      </div>
-    }>
+    <Suspense fallback={<HomePageSkeleton />}>
       <HomeContent />
     </Suspense>
   );

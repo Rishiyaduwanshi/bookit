@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Cards from '../components/Cards';
 import api from '../api';
 import { useToast } from '@/context/toastContext';
+import { HomePageSkeleton } from '@/components/loading';
 
 const Displaycard = ({ searchQuery }) => {
   const [travelData, setTravelData] = useState([]);
@@ -39,6 +40,10 @@ const Displaycard = ({ searchQuery }) => {
     fetchData();
   }, [fetchData]);
 
+  if (isLoading) {
+    return <HomePageSkeleton />;
+  }
+
   return (
     <div
       className="card-containers grid gap-4 sm:gap-5 md:gap-6 p-4 sm:p-6 md:p-8 lg:p-12 xl:p-20
@@ -47,9 +52,7 @@ const Displaycard = ({ searchQuery }) => {
             lg:grid-cols-3 
             xl:grid-cols-4"
     >
-      {isLoading ? (
-        <div className="col-span-full text-center py-10">Loading...</div>
-      ) : travelData.length > 0 ? (
+      {travelData.length > 0 ? (
         travelData.map((item) => (
           <Cards
             key={item._id}

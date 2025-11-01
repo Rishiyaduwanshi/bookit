@@ -7,6 +7,7 @@ import api from '../api';
 import { useToast } from '@/context/toastContext';
 import useCartStore from '@/store/cart.store';
 import useBookingStore from '@/store/booking.store';
+import { ExperienceDetailsSkeleton } from '@/components/loading';
 
 const DisplayDetails = ({ experienceId }) => {
   const [data, setData] = useState(null);
@@ -34,9 +35,7 @@ const DisplayDetails = ({ experienceId }) => {
   }, [experienceId]);
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-96">Loading...</div>
-    );
+    return <ExperienceDetailsSkeleton />;
   }
 
   if (!data) {
