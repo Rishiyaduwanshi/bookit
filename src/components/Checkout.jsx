@@ -10,7 +10,7 @@ const Checkout = () => {
   const [promocode, setPromocode] = useState('');
   const [isApplying, setIsApplying] = useState(false);
   const { showError, showSuccess, showWarning } = useToast();
-  const { applyDiscount } = useCartStore();
+  const { applyDiscount, discount } = useCartStore();
   const { name, email, termsAccepted, setName, setEmail, setTermsAccepted } =
     useBookingStore();
 
@@ -52,6 +52,7 @@ const Checkout = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
+
         <div className="flex flex-col flex-1 gap-1">
           <label htmlFor="email" className="text-sm sm:text-base">
             Email
@@ -67,6 +68,10 @@ const Checkout = () => {
           />
         </div>
       </div>
+      <p className="text-gray-500 text-xs -mb-2 ml-1">
+        Apply <span className="text-green-500">'SAVE10'</span> For instant 10%
+        Discount
+      </p>
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
         <input
           onChange={(e) => setPromocode(e.target.value.trim().toUpperCase())}
@@ -82,9 +87,20 @@ const Checkout = () => {
             isApplying ? 'muted cursor-not-allowed' : 'cursor-pointer'
           }  px-3 py-2 flex-1 rounded-md text-center bg-black text-amber-100 text-sm sm:text-base`}
         >
-          {isApplying ? <ButtonLoader text="Applying" spinnerColor="yellow" /> : 'Apply'}
+          {isApplying ? (
+            <ButtonLoader text="Applying" spinnerColor="yellow" />
+          ) : (
+            'Apply'
+          )}
         </span>
       </div>
+      {discount > 0 ? (
+        <p className="text-green-500 text-sm -mt-2 ml-1">
+          ✓ Promo code applied! You saved ₹{discount}
+        </p>
+      ) : (
+        ''
+      )}
       <div className="flex gap-2">
         <input
           type="checkbox"

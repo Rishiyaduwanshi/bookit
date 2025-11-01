@@ -93,7 +93,7 @@ const Details = ({ slots, name, desc, about }) => {
                   className={`py-1.5 sm:py-2 inline-block px-2 sm:px-3 border rounded-md text-xs sm:text-sm transition-all ${
                     isMuted || isFullyBooked
                       ? 'opacity-40 cursor-not-allowed'
-                      : 'cursor-pointer hover:border-amber-300'
+                      : 'cursor-pointer'
                   } ${
                     selectedTime === time && isForSelectedDate
                       ? 'bg-amber-300 text-gray-950 border-0'

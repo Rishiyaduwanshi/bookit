@@ -34,9 +34,12 @@ const useCartStore = create((set, get) => ({
     });
   },
 
+  setDiscount: (d) => {
+    set({ discount: d });
+  },
+
   applyDiscount: (discount, promocodeId, promocode) => {
     const { subTotal, taxes } = get();
-    // Ensure discount doesn't make total negative
     const maxDiscount = subTotal + taxes;
     const validDiscount = Math.min(discount, maxDiscount);
     const newTotal = Math.max(0, subTotal + taxes - validDiscount);

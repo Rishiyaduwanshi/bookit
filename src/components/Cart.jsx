@@ -17,6 +17,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
     subTotal,
     total,
     promocode,
+    setDiscount
   } = useCartStore();
 
   const {
@@ -69,8 +70,8 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
 
         const response = await api.post('/bookings', bookingData);
         showSuccess(response.data.message || 'Booking confirmed successfully!');
+        setDiscount(0);
 
-        // Save booking ID and redirect with it
         const bookingId = response.data.data.booking._id;
         setBookingId(bookingId);
         router.push(`/confirm?bookingId=${bookingId}`);
@@ -140,9 +141,9 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
           <dd>&#8377;{taxes}</dd>
         </div>
         {discount > 0 && (
-          <div className="flex justify-between">
-            <dt>Discount</dt>
-            <dd>&#8377;{discount}</dd>
+          <div className="flex justify-between text-green-500!">
+            <dt className='text-green-500!'>Discount {`(${promocode})`}</dt>
+            <dd> - &#8377;{discount}</dd>
           </div>
         )}
         <div className="flex justify-between border-t border-t-gray-500 pt-2 font-bold">
