@@ -21,7 +21,6 @@ app.use(express.json());
 
 // Routes
 import indexRoutes from './routes/index.js';
-import authRoutes from './routes/auth.routes.js';
 import experiencesRoutes from './routes/experience.routes.js'
 import promoRoutes from './routes/promo.routes.js'
 import bookingRoutes from './routes/booking.route.js'
@@ -32,8 +31,6 @@ const api = express.Router();
 app.use(`/api/v${config.VERSION.split(".")[0]}`, api);
 
 app.use('/', indexRoutes);
-api.use('/auth', authRoutes);
-api.use('/auth', authRoutes);
 api.use('/experiences', experiencesRoutes);
 api.use('/promo', promoRoutes);
 api.use('/bookings', bookingRoutes);

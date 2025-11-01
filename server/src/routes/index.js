@@ -21,18 +21,18 @@ router.get('/', (req, res) => {
         apiBase: `${baseUrl}/api/${apiVersion}`,
       },
       endpoints: {
-        authentication: {
-          register: `POST ${baseUrl}/api/${apiVersion}/auth/register`,
-          login: `POST ${baseUrl}/api/${apiVersion}/auth/login`,
-          me: `GET ${baseUrl}/api/${apiVersion}/auth/me`,
-          logout: `POST ${baseUrl}/api/${apiVersion}/auth/logout`,
-        },
         experiences: {
           getAll: `GET ${baseUrl}/api/${apiVersion}/experiences`,
+          search: `GET ${baseUrl}/api/${apiVersion}/experiences?search=query`,
           getById: `GET ${baseUrl}/api/${apiVersion}/experiences/:id`,
+        },
+        bookings: {
+          create: `POST ${baseUrl}/api/${apiVersion}/bookings`,
+          description: 'Create new booking with name, email, slotId, quantity, and optional promocode',
         },
         promo: {
           validate: `POST ${baseUrl}/api/${apiVersion}/promo/validate`,
+          description: 'Validate promo code and get discount details',
         },
       },
       links: {

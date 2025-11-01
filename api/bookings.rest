@@ -1,0 +1,67 @@
+### 🧩 Environment / Variables
+@baseUrl = http://localhost:5050/api/v1/bookings
+@slotId = 69040426f4bf2b0e6feb2c3b
+@promocodeId = 671f06df2412b1a0e07f4ba1
+
+---
+
+### 🟢 POST - Create a new booking
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Rishi Yaduwanshi",
+  "email": "rishi@example.com",
+  "slotId": "{{slotId}}",
+  "quantity": 2
+}
+
+---
+
+### 🟢 POST - Create booking with promocode (by code string)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Abhinav Prakash",
+  "email": "abhinav@example.com",
+  "slotId": "{{slotId}}",
+  "quantity": 3,
+  "promocode": "HIGHWAYDELITE"
+}
+
+---
+
+### 🟢 POST - Create booking with promocode (by ID)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "slotId": "{{slotId}}",
+  "quantity": 1,
+  "promocodeId": "{{promocodeId}}"
+}
+
+---
+
+### 📝 Notes:
+# - name: Required - User's full name
+# - email: Required - User's email address
+# - slotId: Required - MongoDB ObjectId of the slot to book
+# - quantity: Required - Number of seats to book (must be > 0)
+# - promocode: Optional - Promo code string (e.g., "HIGHWAYDELITE")
+# - promocodeId: Optional - Promo code MongoDB ObjectId
+#
+# Response includes:
+# - booking: Created booking object with all details
+# - appliedPromo: Promo code info if used (code, discount)
+#
+# Validations:
+# - Checks if slot exists
+# - Verifies available seats
+# - Validates promo code (if provided)
+# - Updates slot's bookedSeats count
+
+---

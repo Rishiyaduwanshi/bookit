@@ -1,6 +1,7 @@
 ### 🧩 Environment / Variables
 @baseUrl = http://localhost:5050/api/v1/experiences
 @id = 6903504cbe93b8f725ecdf68
+@search = kayaking
 
 ---
 
@@ -10,8 +11,39 @@ Accept: application/json
 
 ---
 
-### 🟢 GET single experience by ID 
+### 🔍 GET experiences with search
+GET {{baseUrl}}?search={{search}}
+Accept: application/json
+
+---
+
+###    GET experiences - Search by location
+GET {{baseUrl}}?search=Udupi
+Accept: application/json
+
+---
+
+### 🔍 GET experiences - Search by name
+GET {{baseUrl}}?search=Scuba
+Accept: application/json
+
+---
+
+### �🟢 GET single experience by ID 
 GET {{baseUrl}}/{{id}}
 Accept: application/json
+
+---
+
+### 📝 Notes:
+# Search Query Parameter:
+# - Searches in: name, location, and description
+# - Case-insensitive
+# - Returns empty array if no matches found
+#
+# Example searches:
+# - ?search=kayaking - Finds "Kayaking" experience
+# - ?search=Karnataka - Finds experiences in Karnataka
+# - ?search=water - Finds experiences with "water" in description
 
 ---

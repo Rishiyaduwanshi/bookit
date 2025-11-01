@@ -144,23 +144,47 @@ ALLOWED_ORIGINS=https://bookit.iamabhinav.dev,http://localhost:3000
 
 ## 📡 API Endpoints
 
-### Authentication
-```
-POST   /api/auth/register       # Register new user
-POST   /api/auth/login          # User login
-GET    /api/auth/me             # Get current user
-POST   /api/auth/logout         # User logout
+### Experiences
+```http
+GET    /api/v1/experiences           # Get all experiences
+GET    /api/v1/experiences?search=   # Search experiences (name, location, description)
+GET    /api/v1/experiences/:id       # Get experience by ID with slot details
 ```
 
-### Experiences
+### Bookings
+```http
+POST   /api/v1/bookings              # Create a new booking
 ```
-GET    /api/experiences         # Get all experiences
-GET    /api/experiences/:id     # Get experience by ID
+
+**Booking Request Body:**
+```json
+{
+  "name": "John Doe",              // Required
+  "email": "john@example.com",     // Required
+  "slotId": "mongodbObjectId",     // Required
+  "quantity": 2,                   // Required (min: 1)
+  "promocode": "SAVE50"            // Optional (code string OR promocodeId)
+}
 ```
 
 ### Promo Codes
+```http
+POST   /api/v1/promo/validate       # Validate promo code
 ```
-POST   /api/promo/validate      # Validate promo code
+
+**Promo Validation Request:**
+```json
+{
+  "promocode": "HIGHWAYDELITE"     // Required
+}
+```
+
+**Response:**
+```json
+{
+  "discount": 100,
+  "_id": "promocodeObjectId"
+}
 ```
 
 ---
