@@ -12,6 +12,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
     price,
     taxes,
     discount,
+    discountPercentage,
     quantity,
     setQuantity,
     subTotal,
@@ -143,7 +144,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
         {discount > 0 && (
           <div className="flex justify-between text-green-500!">
             <dt className='text-green-500!'>Discount {`(${promocode})`}</dt>
-            <dd> - &#8377;{discount}</dd>
+            <dd> - &#8377;{Math.round(discount)}</dd>
           </div>
         )}
         <div className="flex justify-between border-t border-t-gray-500 pt-2 font-bold">

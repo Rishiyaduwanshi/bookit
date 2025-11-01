@@ -62,7 +62,7 @@ export async function bookExperience(req, res, next) {
         appliedPromo: appliedPromo
           ? {
               code: appliedPromo.code,
-              discount: appliedPromo.discount,
+              discountPercentage: appliedPromo.discountPercentage,
             }
           : null,
       },

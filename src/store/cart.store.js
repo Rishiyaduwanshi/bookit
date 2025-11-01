@@ -6,30 +6,35 @@ const useCartStore = create((set, get) => ({
   quantity: 1,
   taxes: 200,
   discount: 0,
+  discountPercentage: 0,
   subTotal: 1200,
   total: 1400,
   promocode: null,
   promocodeId: null,
 
   setCart: (price, tax) => {
-    const { discount, quantity } = get();
+    const { discountPercentage, quantity } = get();
     const newSubtotal = price * quantity;
-    const newTotal = Math.max(0, newSubtotal + tax - discount);
+    const discountAmount = ((newSubtotal + tax) * discountPercentage) / 100;
+    const newTotal = Math.max(0, newSubtotal + tax - discountAmount);
     set({
       price: price,
       taxes: tax,
       subTotal: newSubtotal,
+      discount: discountAmount,
       total: newTotal,
     });
   },
 
   setQuantity: (qty) => {
-    const { price, taxes, discount } = get();
+    const { price, taxes, discountPercentage } = get();
     const newSubtotal = price * qty;
-    const newTotal = Math.max(0, newSubtotal + taxes - discount);
+    const discountAmount = ((newSubtotal + taxes) * discountPercentage) / 100;
+    const newTotal = Math.max(0, newSubtotal + taxes - discountAmount);
     set({
       quantity: qty,
       subTotal: newSubtotal,
+      discount: discountAmount,
       total: newTotal,
     });
   },
@@ -38,13 +43,13 @@ const useCartStore = create((set, get) => ({
     set({ discount: d });
   },
 
-  applyDiscount: (discount, promocodeId, promocode) => {
+  applyDiscount: (discountPercentage, promocodeId, promocode) => {
     const { subTotal, taxes } = get();
-    const maxDiscount = subTotal + taxes;
-    const validDiscount = Math.min(discount, maxDiscount);
-    const newTotal = Math.max(0, subTotal + taxes - validDiscount);
+    const discountAmount = ((subTotal + taxes) * discountPercentage) / 100;
+    const newTotal = Math.max(0, subTotal + taxes - discountAmount);
     set({
-      discount: validDiscount,
+      discountPercentage: discountPercentage,
+      discount: discountAmount,
       total: newTotal,
       promocodeId: promocodeId,
       promocode: promocode,

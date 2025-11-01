@@ -10,7 +10,7 @@ const Checkout = () => {
   const [promocode, setPromocode] = useState('');
   const [isApplying, setIsApplying] = useState(false);
   const { showError, showSuccess, showWarning } = useToast();
-  const { applyDiscount, discount } = useCartStore();
+  const { applyDiscount, discount, discountPercentage } = useCartStore();
   const { name, email, termsAccepted, setName, setEmail, setTermsAccepted } =
     useBookingStore();
 
@@ -25,7 +25,7 @@ const Checkout = () => {
         promocode,
       });
       showSuccess(resp.data.message);
-      applyDiscount(resp.data.data.discount, resp.data.data._id, promocode);
+      applyDiscount(resp.data.data.discountPercentage, resp.data.data._id, promocode);
     } catch (error) {
       showError(error.response.data.message);
     } finally {
@@ -69,7 +69,7 @@ const Checkout = () => {
         </div>
       </div>
       <p className="text-gray-500 text-xs -mb-2 ml-1">
-        Apply <span className="text-green-500">'SAVE10'</span> For instant 10%
+        Apply <span className="text-green-500">'BOOKITNOV'</span> For instant 15%
         Discount
       </p>
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
@@ -96,7 +96,7 @@ const Checkout = () => {
       </div>
       {discount > 0 ? (
         <p className="text-green-500 text-sm -mt-2 ml-1">
-          ✓ Promo code applied! You saved ₹{discount}
+          ✓ Promo code applied! You saved ₹{Math.round(discount)} ({discountPercentage}% off)
         </p>
       ) : (
         ''
