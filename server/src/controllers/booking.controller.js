@@ -19,6 +19,11 @@ export async function bookExperience(req, res, next) {
       throw new BadRequestError('Name and email are required.');
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new BadRequestError('Invalid email format.');
+    }
+
     if (!slotId) {
       throw new BadRequestError('Slot ID is required.');
     }
