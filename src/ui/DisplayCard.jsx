@@ -4,20 +4,39 @@ import api from '@/api';
 import Cards from '@/components/Cards';
 import { HomePageSkeleton } from '@/components/loading';
 import { useToast } from '@/context/toastContext';
+import useExperienceStore from '@/store/experience.store';
 
 const Displaycard = ({ searchQuery }) => {
   const [travelData, setTravelData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { showError } = useToast();
+  const { getExperiencesList, setExperiencesList } = useExperienceStore();
 
   const fetchData = useCallback(async () => {
+    if (!searchQuery) {
+      const cachedList = getExperiencesList();
+
+      if (cachedList) {
+        console.log('✅ Using cached experiences list');
+        setTravelData(cachedList);
+        setIsLoading(false);
+        return;
+      }
+    }
+
     try {
       setIsLoading(true);
       const url = searchQuery
         ? `/experiences?search=${encodeURIComponent(searchQuery)}`
         : '/experiences';
       const resp = await api.get(url);
-      setTravelData(resp.data.data);
+      const data = resp.data.data;
+
+      setTravelData(data);
+
+      if (!searchQuery) {
+        setExperiencesList(data);
+      }
     } catch (error) {
       showError(error);
     } finally {
