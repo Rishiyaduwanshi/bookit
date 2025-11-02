@@ -15,13 +15,16 @@ const Cards = ({ id, name, location, desc, price, imgSrc }) => {
 
   return (
     <div className="flex flex-col h-full md:text-md text-xs">
-      <div className="image relative h-49 sm:h-48 md:h-48">
+      <div className="image relative h-48 md:h-45">
         <Image
           src={imgSrc}
           alt={name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
           className="rounded-t-lg object-cover"
+          loading="lazy"
+          quality={75}
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGBkbHB0f/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwA3rBbCaaJOqHnPSvqfgA="
         />
       </div>
       <div className="info hd-bg-tertiary-accent rounded-b-md flex flex-col px-3 py-2 grow">
@@ -46,7 +49,7 @@ const Cards = ({ id, name, location, desc, price, imgSrc }) => {
             type="button"
           >
             {isNavigating ? (
-              <ButtonLoader text="Loading" spinnerColor='black' />
+              <ButtonLoader text="Loading" spinnerColor="black" />
             ) : (
               'View Details'
             )}
