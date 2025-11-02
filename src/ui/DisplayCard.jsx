@@ -23,7 +23,7 @@ const Displaycard = ({ searchQuery }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [searchQuery, showError]);
+  }, [searchQuery]);
 
   useEffect(() => {
     fetchData();

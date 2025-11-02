@@ -1,9 +1,18 @@
 'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { ButtonLoader } from './loading';
 
 const Cards = ({ id, name, location, desc, price, imgSrc }) => {
   const router = useRouter();
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const handleViewDetails = () => {
+    setIsNavigating(true);
+    router.push(`/experiences/${id}`);
+  };
+
   return (
     <div className="flex flex-col h-full md:text-md text-xs">
       <div className="image relative h-49 sm:h-48 md:h-48">
@@ -31,11 +40,16 @@ const Cards = ({ id, name, location, desc, price, imgSrc }) => {
             <span className="font-bold text-sm">&#8377;{price}</span>
           </p>
           <button
-            onClick={() => router.push(`/experiences/${id}`)}
+            onClick={handleViewDetails}
+            disabled={isNavigating}
             className="px-2 py-1 text-sm"
             type="button"
           >
-            View Details
+            {isNavigating ? (
+              <ButtonLoader text="Loading" spinnerColor='black' />
+            ) : (
+              'View Details'
+            )}
           </button>
         </div>
       </div>

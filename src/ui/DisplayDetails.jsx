@@ -7,6 +7,7 @@ import { ExperienceDetailsSkeleton } from '@/components/loading';
 import { useToast } from '@/context/toastContext';
 import useBookingStore from '@/store/booking.store';
 import useCartStore from '@/store/cart.store';
+import useExperienceStore from '@/store/experience.store';
 import api from '../api';
 
 const DisplayDetails = ({ experienceId }) => {
@@ -15,19 +16,35 @@ const DisplayDetails = ({ experienceId }) => {
   const { showError } = useToast();
   const { setCart } = useCartStore();
   const { setExperienceName } = useBookingStore();
+  const { getExperience, setExperience } = useExperienceStore();
 
   useEffect(() => {
     const fetchData = async () => {
+      const cachedData = getExperience(experienceId);
+
+      if (cachedData) {
+        console.log('✅ Using cached data for:', experienceId);
+        setCart(cachedData?.price, cachedData?.tax);
+        setExperienceName(cachedData?.name);
+        setData(cachedData);
+        setIsLoading(false);
+        return;
+      }
+
       try {
+        console.log('🌐 Fetching from API:', experienceId);
         const resp = await api.get(`/experiences/${experienceId}`);
-        const data = resp.data.data;
-        setCart(data?.price, data?.tax);
-        setExperienceName(data?.name);
-        setData(data);
+        const fetchedData = resp.data.data;
+        setExperience(experienceId, fetchedData);
+
+        setCart(fetchedData?.price, fetchedData?.tax);
+        setExperienceName(fetchedData?.name);
+        setData(fetchedData);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
         showError(error.response?.data?.message || 'Failed to fetch data');
+        setIsLoading(false);
       }
     };
 
