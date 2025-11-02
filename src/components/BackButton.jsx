@@ -1,6 +1,6 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function BackHeader({ title = 'Back', backTo = '' }) {
   const router = useRouter();
@@ -11,9 +11,10 @@ export default function BackHeader({ title = 'Back', backTo = '' }) {
   }
 
   return (
-    <div
-      className={`relative px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-3 sm:py-4 flex items-center gap-1 cursor-pointer`}
+    <button
+      type="button"
       onClick={handleBack}
+      className={`bg-transparent! ml-20 mt-4 -mb-2   flex items-center gap-1`}
     >
       <Image
         src="/BackArrow.svg"
@@ -25,6 +26,6 @@ export default function BackHeader({ title = 'Back', backTo = '' }) {
       <span className="font-medium text-base sm:text-lg text-gray-800 hover:text-black">
         {title}
       </span>
-    </div>
+    </button>
   );
 }

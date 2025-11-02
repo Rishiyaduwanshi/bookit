@@ -1,40 +1,29 @@
-// 'use client';
-import React, { useEffect, useState, useCallback } from 'react';
-import Cards from '../components/Cards';
-import api from '../api';
-import { useToast } from '@/context/toastContext';
+'use client';
+import { useCallback, useEffect, useState } from 'react';
+import api from '@/api';
+import Cards from '@/components/Cards';
 import { HomePageSkeleton } from '@/components/loading';
+import { useToast } from '@/context/toastContext';
 
 const Displaycard = ({ searchQuery }) => {
   const [travelData, setTravelData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState();
   const { showError } = useToast();
-
-  useEffect(() => {
-    if (error) {
-      const message =
-        typeof error === 'string'
-          ? error
-          : error?.message || 'Something went wrong';
-      showError(message);
-    }
-  }, [error]);
 
   const fetchData = useCallback(async () => {
     try {
       setIsLoading(true);
-      const url = searchQuery 
+      const url = searchQuery
         ? `/experiences?search=${encodeURIComponent(searchQuery)}`
         : '/experiences';
       const resp = await api.get(url);
       setTravelData(resp.data.data);
     } catch (error) {
-      setError(error);
+      showError(error);
     } finally {
       setIsLoading(false);
     }
-  }, [searchQuery]);
+  }, [searchQuery, showError]);
 
   useEffect(() => {
     fetchData();
@@ -53,7 +42,7 @@ const Displaycard = ({ searchQuery }) => {
             xl:grid-cols-4"
     >
       {travelData.length > 0 ? (
-        travelData.map((item) => (
+        travelData.map(item => (
           <Cards
             key={item._id}
             id={item._id}
@@ -66,7 +55,7 @@ const Displaycard = ({ searchQuery }) => {
         ))
       ) : (
         <div className="col-span-full text-center py-10 text-gray-500">
-          {searchQuery 
+          {searchQuery
             ? `No experiences found for "${searchQuery}"`
             : 'No experiences available'}
         </div>

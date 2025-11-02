@@ -1,8 +1,8 @@
-import { verifyRazorpaySignature } from '../services/razorpay.service.js';
 import Booking from '../models/booking.model.js';
 import Slot from '../models/slot.model.js';
+import { verifyRazorpaySignature } from '../services/razorpay.service.js';
+import { BadRequestError, NotFoundError } from '../utils/appError.js';
 import appResponse from '../utils/appResponse.js';
-import { NotFoundError, BadRequestError } from '../utils/appError.js';
 
 export async function verifyPayment(req, res, next) {
   try {
@@ -22,7 +22,7 @@ export async function verifyPayment(req, res, next) {
     const booking = await Booking.findOne({
       razorOrderId: razorpay_order_id,
     });
-    
+
     if (!booking) {
       throw new NotFoundError('Booking not found for this order.');
     }

@@ -1,37 +1,37 @@
 [
-    {
-        "code": "HIGHWAYDELITE",
-        "discountPercentage": 25,
-        "minAmount": 2000,
-        "validTill": "2050-12-31T23:59:59.000Z",
-        "isActive": true
-    },
-    {
-        "code": "BOOKITNOV",
-        "discountPercentage": 15,
-        "minAmount": 1500,
-        "validTill": "2025-11-30T23:59:59.000Z",
-        "isActive": true
-    },
-    {
-        "code": "SUMMER",
-        "discountPercentage": 20,
-        "minAmount": 1000,
-        "validTill": "2026-06-30T23:59:59.000Z",
-        "isActive": false
-    },
-    {
-        "code": "TRAVEL",
-        "discountPercentage": 30,
-        "minAmount": 5000,
-        "validTill": "2027-12-31T23:59:59.000Z",
-        "isActive": false
-    },
-    {
-        "code": "FIRSTBOOK",
-        "discountPercentage": 10,
-        "minAmount": 1000,
-        "validTill": "2028-01-15T23:59:59.000Z",
-        "isActive": true
-    }
+  {
+    "code": "HIGHWAYDELITE",
+    "discountPercentage": 25,
+    "minAmount": 2000,
+    "validTill": "2050-12-31T23:59:59.000Z",
+    "isActive": true
+  },
+  {
+    "code": "BOOKITNOV",
+    "discountPercentage": 15,
+    "minAmount": 1500,
+    "validTill": "2025-11-30T23:59:59.000Z",
+    "isActive": true
+  },
+  {
+    "code": "SUMMER",
+    "discountPercentage": 20,
+    "minAmount": 1000,
+    "validTill": "2026-06-30T23:59:59.000Z",
+    "isActive": false
+  },
+  {
+    "code": "TRAVEL",
+    "discountPercentage": 30,
+    "minAmount": 5000,
+    "validTill": "2027-12-31T23:59:59.000Z",
+    "isActive": false
+  },
+  {
+    "code": "FIRSTBOOK",
+    "discountPercentage": 10,
+    "minAmount": 1000,
+    "validTill": "2028-01-15T23:59:59.000Z",
+    "isActive": true
+  }
 ]

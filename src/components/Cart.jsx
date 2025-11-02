@@ -1,10 +1,10 @@
 'use client';
-import useBookingStore from '@/store/booking.store';
-import useCartStore from '@/store/cart.store';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import api from '@/api';
 import { useToast } from '@/context/toastContext';
+import useBookingStore from '@/store/booking.store';
+import useCartStore from '@/store/cart.store';
 import { ButtonLoader } from './loading';
 
 export default function ({ goTo = '', dateAndTimeSelected = '' }) {
@@ -18,7 +18,6 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
     subTotal,
     total,
     promocode,
-    setDiscount,
   } = useCartStore();
 
   const {
@@ -78,30 +77,31 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
         const { bookingId, razorId, amount, razorKey } = bookingResp.data.data;
 
         const options = {
-          key: razorKey, 
+          key: razorKey,
           amount: amount,
           currency: 'INR',
           name: 'BookIt',
           description: 'Experience Booking',
           order_id: razorId,
-          handler: async function (response) {
+          handler: async response => {
             try {
               const verifyRes = await api.post(
                 '/bookings/verifypayment',
                 response
               );
-
-              showSuccess('Payment successful!');
-              setBookingId(bookingId);
-              router.push(`/confirm?bookingId=${bookingId}`);
-            } catch (err) {
+              if (verifyRes.data.success) {
+                showSuccess('Payment successful!');
+                setBookingId(bookingId);
+                router.push(`/confirm?bookingId=${bookingId}`);
+              }
+            } catch (_) {
               showError('Payment verification failed.');
             } finally {
               setIsSubmitting(false);
             }
           },
           modal: {
-            ondismiss: function () {
+            ondismiss: () => {
               showError('Payment cancelled. Booking not confirmed.');
               setIsSubmitting(false);
             },
@@ -194,6 +194,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
       </div>
       <div className="bottom">
         <button
+          type="button"
           onClick={handleConfirm}
           disabled={
             isSubmitting ||

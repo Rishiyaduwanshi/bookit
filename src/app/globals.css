@@ -11,7 +11,7 @@
   --hd-btn-primary: #ffd643;
   --hd-bg-tertiary-accent: #e3e3e3;
   --hd-text-tertiary-accent: #8a8282;
-  --hd-muted-color:
+  --hd-muted-color: ;
 }
 
 /* 🌙 Dark mode adjustments */
@@ -129,7 +129,7 @@ input:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.cart .top>div:not(:last-child) dt {
+.cart .top > div:not(:last-child) dt {
   color: var(--hd-text-muted);
 }
 

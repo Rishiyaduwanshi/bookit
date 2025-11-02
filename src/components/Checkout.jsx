@@ -1,9 +1,9 @@
 'use client';
-import api from '@/api';
 import { useCallback, useState } from 'react';
+import api from '@/api';
 import { useToast } from '@/context/toastContext';
-import useCartStore from '@/store/cart.store';
 import useBookingStore from '@/store/booking.store';
+import useCartStore from '@/store/cart.store';
 import { ButtonLoader } from './loading';
 
 const Checkout = () => {
@@ -25,7 +25,11 @@ const Checkout = () => {
         promocode,
       });
       showSuccess(resp.data.message);
-      applyDiscount(resp.data.data.discountPercentage, resp.data.data._id, promocode);
+      applyDiscount(
+        resp.data.data.discountPercentage,
+        resp.data.data._id,
+        promocode
+      );
     } catch (error) {
       showError(error.response.data.message);
     } finally {
@@ -49,7 +53,7 @@ const Checkout = () => {
             placeholder="Your name"
             className="py-2 px-2 w-full  text-sm sm:text-base"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
           />
         </div>
 
@@ -64,17 +68,17 @@ const Checkout = () => {
             placeholder="Your email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
       </div>
       <p className="text-gray-500 text-xs -mb-2 ml-1">
-        Apply <span className="text-green-500">'BOOKITNOV'</span> For instant 15%
-        Discount
+        Apply <span className="text-green-500">'BOOKITNOV'</span> For instant
+        15% Discount
       </p>
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
         <input
-          onChange={(e) => setPromocode(e.target.value.trim().toUpperCase())}
+          onChange={e => setPromocode(e.target.value.trim().toUpperCase())}
           type="text"
           placeholder="Promo code"
           className="py-2 px-2 w-full sm:w-[70%] text-sm sm:text-base"
@@ -96,7 +100,8 @@ const Checkout = () => {
       </div>
       {discount > 0 ? (
         <p className="text-green-500 text-sm -mt-2 ml-1">
-          ✓ Promo code applied! You saved ₹{discount} ({discountPercentage}% off)
+          ✓ Promo code applied! You saved ₹{discount} ({discountPercentage}%
+          off)
         </p>
       ) : (
         ''
@@ -108,7 +113,7 @@ const Checkout = () => {
           id="tnc"
           className="cursor-pointer bg-black"
           checked={termsAccepted}
-          onChange={(e) => setTermsAccepted(e.target.checked)}
+          onChange={e => setTermsAccepted(e.target.checked)}
         />
         <label htmlFor="tnc" className="text-gray-600 text-xs sm:text-sm">
           I agree to the terms and safety policy

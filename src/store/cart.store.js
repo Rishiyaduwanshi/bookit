@@ -15,7 +15,8 @@ const useCartStore = create((set, get) => ({
   setCart: (price, tax) => {
     const { discountPercentage, quantity } = get();
     const newSubtotal = price * quantity;
-    const discountAmount = ((newSubtotal + tax) * (discountPercentage || 0)) / 100;
+    const discountAmount =
+      ((newSubtotal + tax) * (discountPercentage || 0)) / 100;
     const newTotal = Math.max(0, newSubtotal + tax - discountAmount);
     set({
       price: price,
@@ -26,10 +27,11 @@ const useCartStore = create((set, get) => ({
     });
   },
 
-  setQuantity: (qty) => {
+  setQuantity: qty => {
     const { price, taxes, discountPercentage } = get();
     const newSubtotal = price * qty;
-    const discountAmount = ((newSubtotal + taxes) * (discountPercentage || 0)) / 100;
+    const discountAmount =
+      ((newSubtotal + taxes) * (discountPercentage || 0)) / 100;
     const newTotal = Math.max(0, newSubtotal + taxes - discountAmount);
     set({
       quantity: qty,
@@ -39,7 +41,7 @@ const useCartStore = create((set, get) => ({
     });
   },
 
-  setDiscount: (d) => {
+  setDiscount: d => {
     set({ discount: d });
   },
 

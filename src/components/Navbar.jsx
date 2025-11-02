@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const Navbar = () => {
     setSearchQuery(query);
   }, [searchParams]);
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     e.preventDefault();
 
     if (searchQuery.trim()) {
@@ -23,7 +23,7 @@ const Navbar = () => {
     }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = e => {
     if (e.key === 'Enter') {
       handleSearch(e);
     }
@@ -33,6 +33,7 @@ const Navbar = () => {
     <nav className="text-amber-10 hd-bg-color flex sm:flex-row justify-between items-center gap-3 sm:gap-0 min-h-20 px-4 sm:px-8 md:px-12 lg:px-20 py-3 sm:py-2 shadow-md">
       <div className="left w-sm sm:w-auto flex justify-center sm:justify-start">
         <Link href="/">
+          {/** biome-ignore lint/performance/noImgElement: <> */}
           <img
             src="/logo.svg"
             alt="Highway Delite Logo"
@@ -48,7 +49,7 @@ const Navbar = () => {
           placeholder="Search experiences"
           className="font-medium text-sm px-2 py-1! sm:px-5 sm:h-10  sm:py-2 rounded"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={e => setSearchQuery(e.target.value)}
           onKeyDown={handleKeyPress}
         />
         <button

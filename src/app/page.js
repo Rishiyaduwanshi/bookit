@@ -1,8 +1,8 @@
-"use client"
-import DisplayCard from "@/ui/DisplayCard";
-import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import { HomePageSkeleton } from "@/components/loading";
+'use client';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+import { HomePageSkeleton } from '@/components/loading';
+import DisplayCard from '@/ui/DisplayCard';
 
 function HomeContent() {
   const searchParams = useSearchParams();

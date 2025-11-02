@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import '../db/connectDb.js';
 import Promocode from '../src/models/promocode.model.js';
 

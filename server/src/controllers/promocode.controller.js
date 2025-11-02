@@ -16,9 +16,9 @@ export async function validatePromocode(req, res, next) {
 
     appResponse(res, {
       message: 'Promocode applied successfully',
-      data: { 
+      data: {
         discountPercentage: foundPromocode.discountPercentage,
-        _id: foundPromocode._id 
+        _id: foundPromocode._id,
       },
     });
   } catch (error) {

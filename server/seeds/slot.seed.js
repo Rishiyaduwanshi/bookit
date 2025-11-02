@@ -1,8 +1,7 @@
 import '../db/connectDb.js';
+import dayjs from 'dayjs';
 import Experience from '../src/models/experiences.model.js';
-import Slot from '../src/models/slot.model.js'; 
-import dayjs from 'dayjs'; 
-
+import Slot from '../src/models/slot.model.js';
 
 const seedSlots = async () => {
   try {
@@ -17,7 +16,7 @@ const seedSlots = async () => {
 
     const slotsData = [];
 
-    experiences.forEach((exp) => {
+    experiences.forEach(exp => {
       slotsData.push(
         {
           experienceId: exp._id,
@@ -52,7 +51,6 @@ const seedSlots = async () => {
 
     await Slot.insertMany(slotsData);
     console.log(`✅ Inserted ${slotsData.length} slots.`);
-
   } catch (error) {
     console.error('❌ Slot seeding failed:', error);
   } finally {

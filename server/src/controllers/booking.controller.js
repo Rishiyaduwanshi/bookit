@@ -1,15 +1,15 @@
+import { config } from '../../config/index.js';
 import Booking from '../models/booking.model.js';
-import { createRazorpayOrder } from '../services/razorpay.service.js';
 import Experience from '../models/experiences.model.js';
-import Slot from '../models/slot.model.js';
 import PromoCode from '../models/promocode.model.js';
+import Slot from '../models/slot.model.js';
+import { createRazorpayOrder } from '../services/razorpay.service.js';
 import {
   BadRequestError,
-  NotFoundError,
   GoneError,
+  NotFoundError,
 } from '../utils/appError.js';
 import appResponse from '../utils/appResponse.js';
-import { config } from '../../config/index.js';
 
 export async function bookExperience(req, res, next) {
   try {

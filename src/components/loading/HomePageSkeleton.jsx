@@ -1,7 +1,7 @@
 const HomePageSkeleton = () => {
   return (
     <div className="card-containers grid gap-4 sm:gap-5 md:gap-6 p-4 sm:p-6 md:p-8 lg:p-12 xl:p-20 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+      {[1, 2, 3, 4, 5, 6, 7, 8].map(item => (
         <div key={item} className="flex flex-col h-full animate-pulse">
           <div className="h-48 sm:h-56 md:h-64 bg-gray-300 rounded-t-md"></div>
 

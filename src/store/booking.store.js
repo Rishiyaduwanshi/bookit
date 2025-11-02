@@ -1,7 +1,7 @@
 'use client';
 import { create } from 'zustand';
 
-const useBookingStore = create((set, get) => ({
+const useBookingStore = create(set => ({
   date: '',
   time: '',
   slotId: '',
@@ -11,49 +11,49 @@ const useBookingStore = create((set, get) => ({
   bookingId: '',
   termsAccepted: false,
 
-  setDate: (dt) => {
+  setDate: dt => {
     set({
       date: dt,
     });
   },
 
-  setTime: (time) => {
+  setTime: time => {
     set({
       time,
     });
   },
 
-  setSlotId: (slotId) => {
+  setSlotId: slotId => {
     set({
       slotId,
     });
   },
 
-  setName: (name) => {
+  setName: name => {
     set({
       name,
     });
   },
 
-  setEmail: (email) => {
+  setEmail: email => {
     set({
       email,
     });
   },
 
-  setExperienceName: (experienceName) => {
+  setExperienceName: experienceName => {
     set({
       experienceName,
     });
   },
 
-  setBookingId: (bookingId) => {
+  setBookingId: bookingId => {
     set({
       bookingId,
     });
   },
 
-  setTermsAccepted: (termsAccepted) => {
+  setTermsAccepted: termsAccepted => {
     set({
       termsAccepted,
     });

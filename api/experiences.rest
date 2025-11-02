@@ -29,7 +29,7 @@ Accept: application/json
 
 ---
 
-### �🟢 GET single experience by ID 
+### 🟢 GET single experience by ID 
 GET {{baseUrl}}/{{id}}
 Accept: application/json
 

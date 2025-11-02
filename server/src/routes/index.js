@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import appResponse from '../utils/appResponse.js';
 import { config } from '../../config/index.js';
+import appResponse from '../utils/appResponse.js';
 
 const router = Router();
 
@@ -28,7 +28,8 @@ router.get('/', (req, res) => {
         },
         bookings: {
           create: `POST ${baseUrl}/api/${apiVersion}/bookings`,
-          description: 'Create new booking with name, email, slotId, quantity, and optional promocode',
+          description:
+            'Create new booking with name, email, slotId, quantity, and optional promocode',
         },
         promo: {
           validate: `POST ${baseUrl}/api/${apiVersion}/promo/validate`,
@@ -50,7 +51,7 @@ router.get('/', (req, res) => {
 });
 
 // Health check route
-router.get('/health', (req, res) => {
+router.get('/health', (_, res) => {
   appResponse(res, {
     message: 'Server is healthy',
     data: {

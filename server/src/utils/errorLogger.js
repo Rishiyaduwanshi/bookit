@@ -1,8 +1,8 @@
-import { createLogger, format, transports } from 'winston';
-import dayjs from 'dayjs';
 import chalk from 'chalk';
+import dayjs from 'dayjs';
+import { createLogger, format, transports } from 'winston';
 
-const customTimestamp = format((info) => {
+const customTimestamp = format(info => {
   info.timestamp = dayjs().format('DD-MM-YYYY hh:mm:ss A');
   return info;
 });

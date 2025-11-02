@@ -1,13 +1,13 @@
 'use client';
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import Cart from '@/components/Cart';
 import Details from '@/components/Details';
-import Image from 'next/image';
-import api from '../api';
-import { useToast } from '@/context/toastContext';
-import useCartStore from '@/store/cart.store';
-import useBookingStore from '@/store/booking.store';
 import { ExperienceDetailsSkeleton } from '@/components/loading';
+import { useToast } from '@/context/toastContext';
+import useBookingStore from '@/store/booking.store';
+import useCartStore from '@/store/cart.store';
+import api from '../api';
 
 const DisplayDetails = ({ experienceId }) => {
   const [data, setData] = useState(null);

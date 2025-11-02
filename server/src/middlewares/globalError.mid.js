@@ -1,6 +1,6 @@
-import logger from '../utils/errorLogger.js';
-import { AppError } from '../utils/appError.js';
 import { config } from '../../config/index.js';
+import { AppError } from '../utils/appError.js';
+import logger from '../utils/errorLogger.js';
 
 const globalErrorHandler = (err, req, res, _) => {
   try {
@@ -11,8 +11,8 @@ const globalErrorHandler = (err, req, res, _) => {
         : new AppError({
             message: isDev ? err.message : 'Something Broke!',
             statusCode: err.statusCode || 500,
-            stack : err.stack || '',
-            errors : isDev ? err.errors || [] : []
+            stack: err.stack || '',
+            errors: isDev ? err.errors || [] : [],
           });
 
     try {

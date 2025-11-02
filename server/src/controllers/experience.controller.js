@@ -5,9 +5,9 @@ import appResponse from '../utils/appResponse.js';
 export async function listAllExperiences(req, res, next) {
   try {
     const { search } = req.query;
-    
+
     let query = {};
-    
+
     if (search) {
       query = {
         $or: [
@@ -17,7 +17,7 @@ export async function listAllExperiences(req, res, next) {
         ],
       };
     }
-    
+
     const places = await experiencesModel.find(query);
     appResponse(res, {
       message: 'Experiences fetched successfully',

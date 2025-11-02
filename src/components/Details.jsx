@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import useBookingStore from '@/store/booking.store';
 
 const Details = ({ slots, name, desc, about }) => {
@@ -9,16 +9,16 @@ const Details = ({ slots, name, desc, about }) => {
   const { setDate, setTime, setSlotId } = useBookingStore();
 
   const uniqueDates = useMemo(() => {
-    const dates = [...new Set(slots.map((slot) => slot.date))];
-    return dates.map((date) => {
-      const slot = slots.find((s) => s.date === date);
+    const dates = [...new Set(slots.map(slot => slot.date))];
+    return dates.map(date => {
+      const slot = slots.find(s => s.date === date);
       return { date, _id: slot._id };
     });
   }, [slots]);
 
-  const availableTimeSlots = useMemo(() => {
+  useMemo(() => {
     if (!selectedDate) return [];
-    return slots.filter((slot) => slot.date === selectedDate);
+    return slots.filter(slot => slot.date === selectedDate);
   }, [selectedDate, slots]);
 
   function handleDateSelect(e) {
@@ -36,9 +36,8 @@ const Details = ({ slots, name, desc, about }) => {
     const span = e.target.closest('span');
     if (span && selectedDate) {
       const slotId = span.getAttribute('data-id');
-      const selectedSlot = slots.find((slot) => slot._id === slotId);
+      const selectedSlot = slots.find(slot => slot._id === slotId);
 
-      // Only allow selection if the slot belongs to the selected date and is not fully booked
       if (
         selectedSlot &&
         selectedSlot.date === selectedDate &&
@@ -56,7 +55,11 @@ const Details = ({ slots, name, desc, about }) => {
       <h2 className="text-lg sm:text-xl md:text-2xl font-bold">{name}</h2>
       <p className="text-gray-500 text-sm sm:text-base">{desc}</p>
       <div className="slots flex flex-col gap-3 sm:gap-4">
-        <div className="date-slots" onClick={(e) => handleDateSelect(e)}>
+        <div
+          className="date-slots"
+          onKeyDown={e => e.key === 'enter' && handleDateSelect(e)}
+          onClick={e => handleDateSelect(e)}
+        >
           <h3 className="text-base sm:text-lg md:text-xl mb-2">Choose date</h3>
           <div className="flex flex-wrap gap-2">
             {uniqueDates.map(({ date, _id }) => {
@@ -80,7 +83,7 @@ const Details = ({ slots, name, desc, about }) => {
           <h3 className="text-base sm:text-lg md:text-xl mb-2">Choose time</h3>
           <div
             className="flex flex-wrap gap-2"
-            onClick={(e) => handleTimeSelect(e)}
+            onClick={e => handleTimeSelect(e)}
           >
             {slots.map(({ time, totalSeats, bookedSeats, _id, date }) => {
               const isFullyBooked = totalSeats - bookedSeats === 0;
@@ -105,7 +108,7 @@ const Details = ({ slots, name, desc, about }) => {
                   <small className="text-orange-600">
                     {isFullyBooked
                       ? 'Sold out'
-                      : totalSeats - bookedSeats + ' left'}
+                      : `${totalSeats - bookedSeats}left`}
                   </small>
                 </span>
               );

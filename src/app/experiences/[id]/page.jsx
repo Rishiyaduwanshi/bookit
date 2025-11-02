@@ -1,7 +1,7 @@
 'use client';
-import DisplayDetails from '@/ui/DisplayDetails';
-import BackButton from '@/components/BackButton';
 import { useParams } from 'next/navigation';
+import BackButton from '@/components/BackButton';
+import DisplayDetails from '@/ui/DisplayDetails';
 
 const ExperienceDetails = () => {
   const params = useParams();

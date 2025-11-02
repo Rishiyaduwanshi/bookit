@@ -1,7 +1,7 @@
+import { createHmac } from 'node:crypto';
 import Razorpay from 'razorpay';
 import { config } from '../../config/index.js';
 import { BadRequestError } from '../utils/appError.js';
-import { createHmac } from 'node:crypto';
 
 const razor = new Razorpay({
   key_id: config.RAZORPAY_KEY_ID,
@@ -10,7 +10,7 @@ const razor = new Razorpay({
 
 export async function createRazorpayOrder(amount, receiptId) {
   try {
-    if (!amount || isNaN(amount) || amount <= 0) {
+    if (!amount || Number.isNaN(amount) || amount <= 0) {
       throw new BadRequestError('Invalid amount provided for payment.');
     }
 

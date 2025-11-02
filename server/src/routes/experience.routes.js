@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import { getEachExperience, listAllExperiences } from '../controllers/experience.controller.js';
+import {
+  getEachExperience,
+  listAllExperiences,
+} from '../controllers/experience.controller.js';
 
 const router = Router();
 

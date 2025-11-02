@@ -1,14 +1,14 @@
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', err => {
   console.error('UNCAUGHT EXCEPTION! Shutting down...');
   console.error(err.name, err.message);
   console.error(err);
   process.exit(1);
 });
 
+import dayjs from 'dayjs';
 import { config } from './config/index.js';
 import app from './src/app.js';
-import dayjs from 'dayjs';
-import './db/connectDb.js'
+import './db/connectDb.js';
 const PORT = config.PORT || 5440;
 
 const server = app.listen(PORT, () => {
@@ -22,7 +22,7 @@ const server = app.listen(PORT, () => {
   );
 });
 
-process.on('unhandledRejection', (err) => {
+process.on('unhandledRejection', err => {
   console.error('UNHANDLED REJECTION! Shutting down...');
   console.error(err.name, err.message);
   console.error(err);

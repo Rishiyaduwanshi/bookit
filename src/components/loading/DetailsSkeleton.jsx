@@ -16,7 +16,7 @@ const DetailsSkeleton = () => {
         <div className="date-slots">
           <div className="h-5 sm:h-6 bg-gray-300 rounded w-32 mb-2"></div>
           <div className="flex flex-wrap gap-2">
-            {[1, 2, 3, 4, 5].map((item) => (
+            {[1, 2, 3, 4, 5].map(item => (
               <div
                 key={item}
                 className="h-8 sm:h-9 bg-gray-300 rounded-md w-24 sm:w-28"
@@ -29,7 +29,7 @@ const DetailsSkeleton = () => {
         <div className="time-slots">
           <div className="h-5 sm:h-6 bg-gray-300 rounded w-32 mb-2"></div>
           <div className="flex flex-wrap gap-2">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8].map(item => (
               <div
                 key={item}
                 className="h-8 sm:h-9 bg-gray-300 rounded-md w-32 sm:w-36"

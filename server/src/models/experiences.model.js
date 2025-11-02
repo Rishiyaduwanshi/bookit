@@ -13,8 +13,4 @@ const experiencesSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-
-
-
 export default mongoose.model('Experience', experiencesSchema);
-

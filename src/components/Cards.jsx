@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -29,13 +28,12 @@ const Cards = ({ id, name, location, desc, price, imgSrc }) => {
         <div className="third mb-1 flex  sm:flex-row justify-between items-center gap-2 mt-auto">
           <p className="">
             From{'  '}
-            <span className='font-bold text-sm'>
-              &#8377;{price}
-            </span>
+            <span className="font-bold text-sm">&#8377;{price}</span>
           </p>
           <button
             onClick={() => router.push(`/experiences/${id}`)}
             className="px-2 py-1 text-sm"
+            type="button"
           >
             View Details
           </button>

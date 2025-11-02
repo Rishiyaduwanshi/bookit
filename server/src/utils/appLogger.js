@@ -1,10 +1,8 @@
-import morgan from 'morgan';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import dayjs from 'dayjs';
-import { fileURLToPath } from 'url';
+import morgan from 'morgan';
 
-const __filename = fileURLToPath(import.meta.url);
 const logDir = path.resolve('logs');
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir, { recursive: true });
@@ -18,12 +16,14 @@ morgan.token('ist-date', () => {
   return dayjs().format('DD-MM-YYYY hh:mm:ss A');
 });
 
-morgan.token('user', (req) => {
-  return req.user ? req.user.id : 'Guest'; 
+morgan.token('user', req => {
+  return req.user ? req.user.id : 'Guest';
 });
 
-morgan.token('ip', (req) => {
-  return req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+morgan.token('ip', req => {
+  return (
+    req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  );
 });
 
 const customMorganFormat =
