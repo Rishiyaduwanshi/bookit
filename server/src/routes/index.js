@@ -19,21 +19,67 @@ router.get('/', (req, res) => {
       documentation: {
         health: `${baseUrl}/health`,
         apiBase: `${baseUrl}/api/${apiVersion}`,
+        apiDocs: 'See API_DOCS.md for detailed documentation',
       },
       endpoints: {
         experiences: {
-          getAll: `GET ${baseUrl}/api/${apiVersion}/experiences`,
-          search: `GET ${baseUrl}/api/${apiVersion}/experiences?search=query`,
-          getById: `GET ${baseUrl}/api/${apiVersion}/experiences/:id`,
+          listAll: {
+            method: 'GET',
+            url: `${baseUrl}/api/${apiVersion}/experiences`,
+            description: 'Get all experiences with optional search',
+            query: {
+              search: 'optional - search by name, location, or description',
+            },
+          },
+          getById: {
+            method: 'GET',
+            url: `${baseUrl}/api/${apiVersion}/experiences/:id`,
+            description: 'Get specific experience details with available slots',
+            params: { id: 'experience ID' },
+          },
         },
         bookings: {
-          create: `POST ${baseUrl}/api/${apiVersion}/bookings`,
-          description:
-            'Create new booking with name, email, slotId, quantity, and optional promocode',
+          create: {
+            method: 'POST',
+            url: `${baseUrl}/api/${apiVersion}/bookings`,
+            description: 'Create new booking and initiate payment',
+            body: {
+              name: 'string (required)',
+              email: 'string (required)',
+              slotId: 'string (required)',
+              quantity: 'number (required)',
+              promocode: 'string (optional)',
+            },
+          },
+          verifyPayment: {
+            method: 'POST',
+            url: `${baseUrl}/api/${apiVersion}/bookings/verifypayment`,
+            description: 'Verify Razorpay payment and confirm booking',
+            body: {
+              bookingId: 'string (required)',
+              razorpay_order_id: 'string (required)',
+              razorpay_payment_id: 'string (required)',
+              razorpay_signature: 'string (required)',
+            },
+          },
+          getDetails: {
+            method: 'GET',
+            url: `${baseUrl}/api/${apiVersion}/bookings/details`,
+            description: 'Get booking details by email or booking ID',
+            query: {
+              email: 'string (optional)',
+              bookingId: 'string (optional)',
+              note: 'Provide either email or bookingId',
+            },
+          },
         },
         promo: {
-          validate: `POST ${baseUrl}/api/${apiVersion}/promo/validate`,
-          description: 'Validate promo code and get discount details',
+          validate: {
+            method: 'POST',
+            url: `${baseUrl}/api/${apiVersion}/promo/validate`,
+            description: 'Validate promo code and get discount details',
+            body: { promocode: 'string (required)' },
+          },
         },
       },
       links: {

@@ -4,10 +4,11 @@
 
 ![BookIt Banner](https://img.shields.io/badge/BookIt-Experience%20Booking-FFD643?style=for-the-badge)
 
-**A modern, full-stack experience booking platform built with Next.js and Express**
+**A modern, full-stack experience booking platform with Razorpay payment integration**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-bookit.iamabhinav.dev-blue?style=for-the-badge&logo=vercel)](https://bookit.iamabhinav.dev)
 [![Backend API](https://img.shields.io/badge/Backend%20API-DigitalOcean-0080FF?style=for-the-badge&logo=digitalocean)](https://bookit-bdhul.ondigitalocean.app)
+[![API Docs](https://img.shields.io/badge/API%20Docs-View-green?style=for-the-badge)](./API_DOCS.md)
 
 </div>
 
@@ -15,195 +16,152 @@
 
 ## 📖 About
 
-BookIt is a comprehensive booking platform designed for Highway Delite experiences. Users can browse various travel experiences, select dates and times, manage their cart, apply promo codes, and complete bookings with a seamless, responsive interface.
+BookIt is a comprehensive experience booking platform designed for Highway Delite. Users can browse travel experiences, book time slots, apply promo codes, complete secure Razorpay payments, and track their bookings.
 
-### ✨ Key Features
+---
 
-- 🎯 **Browse Experiences** - Explore a curated collection of travel experiences
-- 📅 **Date & Time Selection** - Choose your preferred slot with an intuitive UI
-- 🛒 **Smart Cart System** - Real-time price calculation with taxes and discounts
-- 🎟️ **Promo Code Support** - Apply discount codes during checkout
-- 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop
+## ✨ Features
 
-- ⚡ **Fast & Modern** - Built with Next.js 16 and React 19
-
+- 🎯 Browse & search experiences
+- 📅 Real-time slot booking with availability
+- 🛒 Smart cart with live price calculations
+- 🎟️ Promo code validation & discounts
+- 💳 Secure Razorpay payment integration
+- 📦 Booking tracking via email or booking ID
+- 📱 Fully responsive mobile-first design
+- ⚡ Fast performance with Next.js SSR
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **Framework:** Next.js 16 (App Router)
-- **UI Library:** React 19
-- **Styling:** Tailwind CSS v4
-- **State Management:** Zustand
-- **HTTP Client:** Axios
-- **Notifications:** React Toastify
-- **Code Quality:** Biome (Linting & Formatting)
-
-### Backend
-- **Runtime:** Node.js
-- **Framework:** Express.js v5
-- **Database:** MongoDB with Mongoose
-- **Authentication:** JWT (JSON Web Tokens)
-- **Security:** bcryptjs, express-rate-limit
-- **Logging:** Winston & Morgan
-- **CORS:** Configured for cross-origin requests
-- **Date Handling:** Day.js
+**Frontend:** Next.js 15, React 19, Tailwind CSS v4, Zustand, Axios, Razorpay SDK  
+**Backend:** Node.js/Bun, Express v5, MongoDB, Mongoose, Razorpay, Winston
 
 ---
 
-## ⚙️ Installation & Setup
+## ⚙️ Quick Start
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- MongoDB (local or cloud instance)
-- pnpm (recommended) or npm
+- Node.js v18+ or Bun
+- MongoDB (local or cloud)
+- Razorpay account
 
-### 1️⃣ Clone the Repository
+### Installation
+
 ```bash
+# Clone repository
 git clone https://github.com/rishiyaduwanshi/bookit.git
 cd bookit
-```
 
-### 2️⃣ Frontend Setup
-```bash
-# Install dependencies
+# Frontend setup
 npm install
-# or
-pnpm install
+npm run dev          # http://localhost:3000
 
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-```
-
-Frontend will be available at `http://localhost:3000`
-
-### 3️⃣ Backend Setup
-```bash
+# Backend setup (in new terminal)
 cd server
-
-# Install dependencies
-pnpm install
-
-# Create environment file
-cp .env.example .env.dev
-
-# Configure your environment variables
-# Edit .env.dev with your MongoDB URI, JWT secret, etc.
-
-# Seed the database (optional)
-pnpm run seed:experiences
-pnpm run seed:slots
-pnpm run seed:promocodes
-
-# Run development server
-pnpm run dev
-
-# Run production server
-pnpm run pro
+bun install
+bun dev              # http://localhost:5000
 ```
 
-Backend will be available at `http://localhost:5000` (or your configured port)
+### Environment Variables
 
----
-
-## 🔧 Environment Variables
-
-### Frontend (.env.local)
+**Frontend** - Create `.env.local`:
 ```env
-NEXT_PUBLIC_API_URL=https://bookit-bdhul.ondigitalocean.app
-# or for local development
-# NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
 
-### Backend (.env.dev / .env)
+**Backend** - Create `.env.dev`:
 ```env
-# Database
-MONGODB_URI=your_mongodb_connection_string
-
-# JWT
-JWT_SECRET=your_jwt_secret_key
-JWT_EXPIRES_IN=7d
-
-# Server
 PORT=5000
 NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/bookit
+RAZORPAY_KEY_ID=rzp_test_xxxxx
+RAZORPAY_KEY_SECRET=xxxxx
+ALLOWED_ORIGINS=http://localhost:3000
+```
 
-# CORS
-ALLOWED_ORIGINS=https://bookit.iamabhinav.dev,http://localhost:3000
+### Seed Database (Optional)
+
+```bash
+cd server
+bun run seed:experiences
+bun run seed:slots
+bun run seed:promocodes
 ```
 
 ---
 
 ## 📡 API Endpoints
 
-### Experiences
-```http
-GET    /api/v1/experiences           # Get all experiences
-GET    /api/v1/experiences?search=   # Search experiences (name, location, description)
-GET    /api/v1/experiences/:id       # Get experience by ID with slot details
-```
+📚 **Full documentation:** [API_DOCS.md](./API_DOCS.md)
 
-### Bookings
-```http
-POST   /api/v1/bookings              # Create a new booking
-```
+**Base URL:** `http://localhost:5000/api/v1`
 
-**Booking Request Body:**
-```json
-{
-  "name": "John Doe",              // Required
-  "email": "john@example.com",     // Required
-  "slotId": "mongodbObjectId",     // Required
-  "quantity": 2,                   // Required (min: 1)
-  "promocode": "SAVE50"            // Optional (code string OR promocodeId)
-}
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/experiences` | List all experiences (+ search) |
+| `GET` | `/experiences/:id` | Get experience with slots |
+| `POST` | `/bookings` | Create booking & initiate payment |
+| `POST` | `/bookings/verifypayment` | Verify Razorpay payment |
+| `GET` | `/bookings/details` | Track booking by email/ID |
+| `POST` | `/promo/validate` | Validate promo code |
+| `GET` | `/health` | Health check |
+| `GET` | `/` | API info & all endpoints |
 
-### Promo Codes
-```http
-POST   /api/v1/promo/validate       # Validate promo code
-```
+---
 
-**Promo Validation Request:**
-```json
-{
-  "promocode": "HIGHWAYDELITE"     // Required
-}
-```
+## 🔄 Booking Flow
 
-**Response:**
-```json
-{
-  "discount": 100,
-  "_id": "promocodeObjectId"
-}
-```
+1. Browse experiences → `GET /experiences`
+2. View details & slots → `GET /experiences/:id`
+3. Add to cart & apply promo → `POST /promo/validate`
+4. Create booking → `POST /bookings` (returns Razorpay order)
+5. Complete payment → Razorpay checkout
+6. Verify payment → `POST /bookings/verifypayment`
+7. Booking confirmed → Seats updated
+8. Track anytime → `GET /bookings/details`
+
+---
+
+## 🚀 Deployment
+
+**Frontend:** Vercel (auto-deploy from `main` branch)  
+**Backend:** DigitalOcean App Platform (auto-deploy from `main` branch)
 
 ---
 
 
-## 👨‍💻 Author
+### Frontend
+```bash
+npm run dev      # Development server
+npm run build    # Production build
+npm start        # Start production
+npm run lint     # Run Biome linter
+```
 
-**Abhinav Yaduwanshi**
+### Backend
+```bash
+bun dev                    # Development with hot reload
+bun run pro                # Production server
+bun run seed:experiences   # Seed experiences
+bun run seed:slots         # Seed time slots
+bun run seed:promocodes    # Seed promo codes
+```
 
-- 🌐 Portfolio: [iamabhinav.dev](https://iamabhinav.dev)
-- 📝 Blog: [blog.iamabhinav.dev](https://blog.iamabhinav.dev)
-- 💼 LinkedIn: [Connect with me](https://linkedin.com/in/rishiyaduwanshi)
-- 🐙 GitHub: [@rishiyaduwanshi](https://github.com/rishiyaduwanshi)
+---
+
+## 👨‍💻 Developer
+
+**Abhinav Prakash**
+
+🌐 [Portfolio](https://iamabhinav.dev) • 📝 [Blog](https://blog.iamabhinav.dev) • 💼 [LinkedIn](https://linkedin.com/in/rishiyaduwanshi) • 🐙 [GitHub](https://github.com/rishiyaduwanshi)
 
 ---
 
 <div align="center">
 
-**⭐ Star this repository if you find it helpful!**
+**⭐ Star this repo if you find it helpful!**
 
 Made with ❤️ by [Abhinav Prakash](https://iamabhinav.dev)
 
