@@ -101,3 +101,42 @@ export async function bookExperience(req, res, next) {
     next(error);
   }
 }
+
+export async function getBookingDetails(req, res, next) {
+  try {
+    const { email, bookingId } = req.query;
+
+    if (!email && !bookingId) {
+      throw new BadRequestError('Please provide either email or booking ID.');
+    }
+
+    const query = bookingId
+      ? { _id: bookingId }
+      : { email: email.toLowerCase() };
+
+    const bookings = await Booking.find(query)
+      .populate({
+        path: 'slot',
+        select: '-_id date time price',
+        populate: {
+          path: 'experienceId',
+          select: '-_id name location about description price tax',
+        },
+      })
+      .populate({ path: 'promocode', select: '-_id code discountPercentage' })
+      .select('-razorOrderId -__v')
+      .lean();
+
+    if (!bookings || bookings.length === 0) {
+      throw new NotFoundError('No bookings found.');
+    }
+
+    return appResponse(res, {
+      message: 'Booking details retrieved successfully',
+      statusCode: 200,
+      data: bookings,
+    });
+  } catch (error) {
+    next(error);
+  }
+}

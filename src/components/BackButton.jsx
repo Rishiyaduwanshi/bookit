@@ -14,7 +14,7 @@ export default function BackHeader({ title = 'Back', backTo = '' }) {
     <button
       type="button"
       onClick={handleBack}
-      className={`bg-transparent! ml-20 mt-4 -mb-2   flex items-center gap-1`}
+      className={`bg-transparent! ml-4 sm:ml-6 md:ml-6 lg:ml-10 xl:ml-20 mt-4  -mb-2  flex items-center gap-1`}
     >
       <Image
         src="/BackArrow.svg"
