@@ -501,7 +501,6 @@ Use the REST files in `/api` directory:
 - `experiences.rest`
 - `bookings.rest`
 - `promocode.rest`
-- `track-booking.rest`
 
 ---
 
@@ -520,7 +519,7 @@ Use the REST files in `/api` directory:
 - **Frontend**: [https://bookit.iamabhinav.dev](https://bookit.iamabhinav.dev)
 - **API Base**: [https://api.bookit.iamabhinav.dev](https://api.bookit.iamabhinav.dev)
 - **GitHub**: [https://github.com/rishiyaduwanshi/bookit](https://github.com/rishiyaduwanshi/bookit)
-- **Developer**: [Abhinav Yaduwanshi](https://iamabhinav.dev)
+- **Developer**: [Abhinav Prakash](https://iamabhinav.dev)
 
 ---
 

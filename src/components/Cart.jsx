@@ -5,6 +5,7 @@ import api from '@/api';
 import { useToast } from '@/context/toastContext';
 import useBookingStore from '@/store/booking.store';
 import useCartStore from '@/store/cart.store';
+import useExperienceStore from '@/store/experience.store';
 import { ButtonLoader } from './loading';
 
 export default function ({ goTo = '', dateAndTimeSelected = '' }) {
@@ -30,6 +31,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
     termsAccepted,
     setBookingId,
   } = useBookingStore();
+  const { clearCache } = useExperienceStore();
   const router = useRouter();
   const { showError, showSuccess } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -91,6 +93,8 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
               );
               if (verifyRes.data.success) {
                 showSuccess('Payment successful!');
+                // Clear experience cache to fetch fresh slot data on next visit
+                clearCache();
                 setBookingId(bookingId);
                 router.push(`/confirm?bookingId=${bookingId}`);
               }
@@ -111,7 +115,7 @@ export default function ({ goTo = '', dateAndTimeSelected = '' }) {
 
         const razor = new window.Razorpay(options);
         razor.open();
-        setIsSubmitting(false); // Reset immediately after opening modal
+        setIsSubmitting(false);
       } catch (error) {
         showError(error.response?.data?.message || 'Failed to create booking');
         setIsSubmitting(false);

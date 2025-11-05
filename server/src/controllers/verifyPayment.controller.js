@@ -36,27 +36,38 @@ export async function verifyPayment(req, res, next) {
       });
     }
 
-    // Get slot data and verify seats are still available
-    const slotData = await Slot.findById(booking.slot);
-    if (!slotData) {
-      throw new NotFoundError('Slot not found.');
-    }
+    const updatedSlot = await Slot.findOneAndUpdate(
+      {
+        _id: booking.slot,
+        $expr: {
+          $gte: [
+            { $subtract: ['$totalSeats', '$bookedSeats'] },
+            booking.quantity,
+          ],
+        },
+      },
+      {
+        $inc: { bookedSeats: booking.quantity },
+      },
+      {
+        new: true, 
+      }
+    );
 
-    const availableSeats = slotData.totalSeats - slotData.bookedSeats;
-    if (booking.quantity > availableSeats) {
-      // Refund needed - seats no longer available
+    if (!updatedSlot) {
       booking.status = 'failed';
       await booking.save();
+
+      const currentSlot = await Slot.findById(booking.slot);
+      const availableSeats = currentSlot
+        ? currentSlot.totalSeats - currentSlot.bookedSeats
+        : 0;
+
       throw new BadRequestError(
         `Only ${availableSeats} seats available. Booking cancelled. Refund will be processed.`
       );
     }
 
-    // NOW book the seats after payment verification
-    slotData.bookedSeats += booking.quantity;
-    await slotData.save();
-
-    // Update booking status
     booking.status = 'confirmed';
     booking.razorPaymentId = razorpay_payment_id;
     await booking.save();

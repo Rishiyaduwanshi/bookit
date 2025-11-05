@@ -89,7 +89,7 @@ router.get('/', (req, res) => {
         github: 'https://github.com/rishiyaduwanshi/bookit',
       },
       developer: {
-        name: 'Abhinav Yaduwanshi',
+        name: 'Abhinav Prakash',
         portfolio: 'https://iamabhinav.dev',
       },
     },

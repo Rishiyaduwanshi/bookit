@@ -96,7 +96,7 @@ const Navbar = () => {
                 onKeyDown={e => e.key === 'Escape' && closeMenu()}
               />
               {/* Menu */}
-              <div className="absolute right-0 top-full mt-2 w-48 hd-bg-secondary rounded-lg shadow-lg z-20 border border-gray-300 overflow-hidden">
+              <div className="absolute right-0 top-full mt-2 w-52 hd-bg-secondary rounded-lg shadow-lg z-20 border border-gray-300 overflow-hidden">
                 <Link
                   href="/track-booking"
                   onClick={closeMenu}
